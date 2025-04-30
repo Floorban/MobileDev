@@ -2,30 +2,17 @@ using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
+    public Rigidbody2D rb { get; private set; }
+
     [Header("Movement")]
-    private Rigidbody2D rb;
     public bool canMove = false;
     [SerializeField] private float moveSpeed = 3f;
     private int moveDir = 1; // 1 for right, -1 for left
 
-    [Header("Shooting")]
-    public GameObject bulletPrefab;
-    [SerializeField] private Transform shootPoint;
-    private LineRenderer aimLine;
-    private Vector2 aimDir;
-    private bool isAiming = false;
-
-    [Header("Recoil")]
-    [SerializeField] private float recoilForce = 10f;
+    [Header("RecoilEffect")]
     [SerializeField] private float movePauseDuration = 0.2f;
-    [SerializeField] private float slowMotionScale = 0.2f;
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
-        aimLine = GetComponent<LineRenderer>();
-        if (aimLine) aimLine.enabled = false;
-    }
-    private void Update() {
-        TouchInput();
     }
     private void FixedUpdate() {
         HorizonMove();
@@ -51,7 +38,7 @@ public class PlayerController : MonoBehaviour {
         scale.x *= -1;
         transform.localScale = scale;
     }
-    private void TouchInput() {
+/*    private void TouchInput() {
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
         if (Input.GetMouseButtonDown(0)) {
             StartAiming();
@@ -83,54 +70,25 @@ public class PlayerController : MonoBehaviour {
         }
     }
 #endif
-    }
-    void StartAiming() {
-        if (isAiming) return;
-        isAiming = true;
-        Time.timeScale = slowMotionScale;
-        // TO DO: using private multipliers instead of timescale for all the dynamic objects slater
-        Time.fixedDeltaTime = 0.02f * Time.timeScale;
-        aimLine.enabled = true;
-    }
+    }*/
 
-    void StopAiming() {
-        isAiming = false;
-        Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.02f;
-        aimLine.enabled = false;
-    }
-
-    void Shoot(Vector2 direction) {
-        GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
-        // TO DO: determine projectile's speed from the current weapon's script later
-        bullet.GetComponent<Rigidbody2D>().linearVelocity = direction * 20f; 
-        Destroy(bullet, 1.5f);
-
-        StartCoroutine(RecoilSquash());
-        rb.AddForce(-direction * recoilForce, ForceMode2D.Impulse);
-        StartCoroutine(ShootPause());
-    }
-    private IEnumerator ShootPause() {
+    public IEnumerator ShootPause() {
         canMove = false;
         // set the duration depending on the current weapon (type and recoil)
         // using unscaled time here
         yield return new WaitForSecondsRealtime(movePauseDuration);
-        if (!isAiming) canMove = true; 
+        canMove = true; 
+    }
+    public void ApplyRecoil(Vector2 dir, float force) {
+        rb.AddForce(-dir.normalized * force, ForceMode2D.Impulse);
     }
     // TO DO: use leantween or dotween to replace the effect later
-    private IEnumerator RecoilSquash(float duration = 0.1f, float squashAmount = 0.8f) {
+    public IEnumerator RecoilSquash(float duration = 0.1f, float squashAmount = 0.8f) {
         Vector3 originalScale = transform.localScale;
         Vector3 squashed = new Vector3(originalScale.x * squashAmount, originalScale.y / squashAmount, originalScale.z);
         transform.localScale = squashed;
 
         yield return new WaitForSecondsRealtime(duration);
         transform.localScale = originalScale;
-    }
-    // TO DO: set the line as consistent distance from a ui script later
-    void UpdateAimLine(Vector2 touchWorldPos) {
-        if (!aimLine) return;
-        aimLine.SetPosition(0, transform.position);
-        //aimLine.SetPosition(1, (Vector2)transform.position + aimDir * 5f);
-        aimLine.SetPosition(1, touchWorldPos);
     }
 }
