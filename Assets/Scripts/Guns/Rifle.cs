@@ -46,7 +46,9 @@ public class Rifle : GunController
     }
     public override void ShootProjectile(Vector2 direction) {
         GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
-        var brb = bullet.GetComponent<Rigidbody2D>();
+        AttackComponent bac = bullet.AddComponent<AttackComponent>();
+        bac.damageAmount = baseDamage;
+        Rigidbody2D brb = bullet.GetComponent<Rigidbody2D>();
         brb.constraints = RigidbodyConstraints2D.FreezeRotation;
         brb.linearVelocity = direction.normalized * bulletSpeed;
         Destroy(bullet, bulletLifetime);

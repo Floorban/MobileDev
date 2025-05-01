@@ -41,7 +41,9 @@ public class Shotgun : GunController
 
             float speed = Random.Range(bulletSpeed - speedRandom, bulletSpeed + speedRandom);
             GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
-            var brb = bullet.GetComponent<Rigidbody2D>();
+            AttackComponent bac = bullet.AddComponent<AttackComponent>();
+            bac.damageAmount = baseDamage;
+            Rigidbody2D brb = bullet.GetComponent<Rigidbody2D>();
             brb.constraints = RigidbodyConstraints2D.FreezeRotation;
             brb.linearVelocity = shotDir * speed;
             Destroy(bullet, bulletLifetime);
