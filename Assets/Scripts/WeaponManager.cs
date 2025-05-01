@@ -60,6 +60,7 @@ public class WeaponManager : MonoBehaviour
 #elif UNITY_IOS || UNITY_ANDROID*/
         if (Input.touchCount == 1) {
             Touch touch = Input.GetTouch(0);
+            if (isSwipingTwoFingers) return;
             switch (touch.phase) {
                 case TouchPhase.Began:
                     currentGun.OnTouchBegin(touch.position);
@@ -101,8 +102,8 @@ public class WeaponManager : MonoBehaviour
                 isSwipingTwoFingers = true;
             }
             else if ((t1.phase == TouchPhase.Ended || t1.phase == TouchPhase.Canceled) &&
-                     (t2.phase == TouchPhase.Ended || t2.phase == TouchPhase.Canceled) &&
-                     isSwipingTwoFingers) {
+                          (t2.phase == TouchPhase.Ended || t2.phase == TouchPhase.Canceled) &&
+                          isSwipingTwoFingers) {
                 Vector2 swipeEndPos = (t1.position + t2.position) / 2f;
                 Vector2 swipeDelta = swipeEndPos - swipeStartPos;
 

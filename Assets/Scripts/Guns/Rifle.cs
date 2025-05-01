@@ -37,9 +37,9 @@ public class Rifle : GunController
             if (currentHeat >= maxHeat) {
                 isOverheated = true;
             }
+            if (canShoot)
+                player.ApplyRecoil(inputAimDIr * aimDir, recoilForce);
         }
-        if (canShoot)
-            player.ApplyRecoil(inputAimDIr * aimDir, recoilForce);
     }
     public override void OnTouchEnd() {
         //disable ui
