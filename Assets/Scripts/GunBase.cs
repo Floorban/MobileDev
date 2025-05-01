@@ -51,11 +51,9 @@ public class GunBase : MonoBehaviour {
             canShoot = false;
             Invoke(nameof(ResetCooldown), cooldown);
         }*/
-    public bool TryFire(int consumedAmmo = 1) {
+    public bool TryFire(int consumedAmmo) {
         // try consume ammo and check cooldown first
-        if (consumedAmmo <= 0 && currentAmmo > 0 && canShoot && Time.time - lastShotTime >= cooldown)
-            return true;
-        else if (currentAmmo <= 0 || !canShoot || Time.time - lastShotTime < cooldown)
+        if (currentAmmo <= 0 || !canShoot || Time.time - lastShotTime < cooldown)
             return false;
 
         // - used amount of ammo
@@ -72,26 +70,16 @@ public class GunBase : MonoBehaviour {
     protected void ResetCooldown() {
         canShoot = true;
     }
-    protected void Reload() {
+    public void Reload() {
         if (isReloading) return;
         isReloading = true;
+        Debug.Log("reloading");
         // add anim and sfx here
         Invoke(nameof(FinishReload), 1f);
     }
     protected void FinishReload() {
         currentAmmo = clipSize;
         isReloading = false;
-    }
-    public void HandleReloadInput() {
-        if (autoReload) return;
-        // shake the phone to reload
-#if UNITY_EDITOR || UNITY_STANDALONE
-        if (Input.GetKeyDown(KeyCode.R))
-            Reload();
-#elif UNITY_IOS || UNITY_ANDROID
-        // for mobile, check for shake input to reload
-        if (Input.acceleration.magnitude > 2f)
-            Reload();
-#endif
+        Debug.Log("reloaded");
     }
 }

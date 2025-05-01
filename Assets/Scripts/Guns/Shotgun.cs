@@ -6,24 +6,24 @@ public class Shotgun : GunController
     public int pelletCount = 6;
     public float spreadAngle = 20f;
 
+    public override int AmmoCostPerShot => pelletCount;
+
     public override void Initialize() {
         canShoot = true;
         Setup();
     }
     public override void OnTouchBegin(Vector2 screenPos) {
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
-        aimDir = inputAimDIr * (worldPos - (Vector2)transform.position).normalized;
+        aimDir = (worldPos - (Vector2)transform.position).normalized;
     }
     public override void OnTouchDrag(Vector2 screenPos) {
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
-        aimDir = inputAimDIr * (worldPos - (Vector2)transform.position).normalized;
+        aimDir = (worldPos - (Vector2)transform.position).normalized;
     }
     public override void OnTouchEnd(Vector2 screenPos) {
-        Fire(aimDir, pelletCount);
+       // Fire(aimDir, AmmoCostPerShot);
     }
-    public override void Fire(Vector2 baseDirection, int consumedAmmo) {
-        if(!TryFire(consumedAmmo)) return;
-
+    public override void ShootProjectile(Vector2 baseDirection) {
         float baseAngle = Mathf.Atan2(baseDirection.y, baseDirection.x) * Mathf.Rad2Deg;
         for (int i = 0; i < pelletCount; i++) {
             float offset = Random.Range(-spreadAngle / 2f, spreadAngle / 2f);
