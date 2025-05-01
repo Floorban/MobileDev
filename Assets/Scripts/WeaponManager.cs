@@ -15,6 +15,10 @@ public class WeaponManager : MonoBehaviour
     private LineRenderer aimLine;
     private bool isAiming = false;
     [SerializeField] private float slowMotionScale = 0.3f;
+
+    [Header("Shake")]
+    public float shakeIntensity = 10f;
+    public float cycleDistance = 100f;
     private void Awake() {
         player = GetComponentInParent<PlayerController>();
         aimLine = GetComponent<LineRenderer>();
@@ -74,11 +78,14 @@ public class WeaponManager : MonoBehaviour
                     break;
             }
         }
-//#endif
+        else {
+            StopAiming();
+        }
+        //#endif
     }
     private void HandleReloadInput() {
         Vector3 acc = Input.acceleration;
-        if (acc.sqrMagnitude > 10f) {
+        if (acc.sqrMagnitude > shakeIntensity) {
             currentGun.Reload();
         }
     }
@@ -100,14 +107,7 @@ public class WeaponManager : MonoBehaviour
                 Vector2 swipeDelta = swipeEndPos - swipeStartPos;
 
                 if (Mathf.Abs(swipeDelta.y) > 100f && Mathf.Abs(swipeDelta.y) > Mathf.Abs(swipeDelta.x)) {
-                    if (swipeDelta.y > 0) {
-                        Debug.Log("Two-finger swipe up - Cycle weapon up");
-                        CycleGun();
-                    }
-                    else {
-                        Debug.Log("Two-finger swipe down - Cycle weapon down");
-                        CycleGun(); 
-                    }
+                        CycleGun(swipeDelta.y);
                 }
 
                 isSwipingTwoFingers = false;
@@ -117,10 +117,20 @@ public class WeaponManager : MonoBehaviour
             isSwipingTwoFingers = false;  
         }
     }
-    private void CycleGun() {
-        currentIndex = (currentIndex + 1) % allGuns.Length;
+    private void CycleGun(float cycleOrder) {
+        if (cycleOrder < 0) { // cycle down
+            currentIndex = (currentIndex + 1) % allGuns.Length; 
+        }
+        else { // cycle up
+            if (currentIndex > 0)
+                currentIndex = (currentIndex - 1) % allGuns.Length;
+            else
+                currentIndex = allGuns.Length - 1;
+        }
+
         currentGun = allGuns[currentIndex];
-        if (currentGun) currentGun.Setup();
+        if (currentGun)
+            currentGun.Setup();
     }
     private Vector2 GetAimDir(Vector2 screenPos) {
         Vector2 worldPos = Camera.main.ScreenToViewportPoint(screenPos);
