@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour {
         if (collision.collider.CompareTag("Wall")) {
             foreach (ContactPoint2D contact in collision.contacts) {
                 // hit from the side
-                if (Mathf.Abs(contact.normal.x) > 0.5f) {
+                if (Mathf.Abs(contact.normal.x) > 0.2f) {
                     Flip();
                     break;
                 }

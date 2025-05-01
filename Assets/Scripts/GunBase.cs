@@ -1,6 +1,11 @@
 using UnityEngine;
 
 public class GunBase : MonoBehaviour {
+    public enum FireMode {
+        Manual,
+        Auto
+    }
+
     [Header("Gun Stats")]
     public bool reverseAimDir;
     [HideInInspector] public int  inputAimDIr = 1;
@@ -9,7 +14,8 @@ public class GunBase : MonoBehaviour {
     public float cooldown = 0.3f;
     public float bulletSpeed = 20f;
     public float recoilForce = 5f;
-    public int baseDamage;
+    [SerializeField] protected float bulletLifetime = 1f;
+    [HideInInspector] public int baseDamage;
 
     [Header("References")]
     [SerializeField] protected GameObject bulletPrefab;

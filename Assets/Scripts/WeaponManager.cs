@@ -4,7 +4,6 @@ using TouchPhase = UnityEngine.TouchPhase;
 
 public class WeaponManager : MonoBehaviour
 {
-    public Vector3 angularVelocity;
     private PlayerController player;
 
     public GunController[] allGuns;
@@ -16,7 +15,7 @@ public class WeaponManager : MonoBehaviour
     private bool isAiming = false;
     [SerializeField] private float slowMotionScale = 0.3f;
 
-    [Header("Shake")]
+    [Header("InputIntensity")]
     public float shakeIntensity = 10f;
     public float cycleDistance = 100f;
     private void Awake() {
@@ -60,7 +59,8 @@ public class WeaponManager : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             switch (touch.phase) {
                 case TouchPhase.Began:
-                    StartAiming();
+                    if (currentGun.fireMode == GunBase.FireMode.Manual)
+                        StartAiming();
                     currentGun.OnTouchBegin(touch.position);
                     break;
                 case TouchPhase.Moved:
@@ -70,15 +70,18 @@ public class WeaponManager : MonoBehaviour
                     UpdateAimLine(worldPos);
                     break;
                 case TouchPhase.Ended:
+                case TouchPhase.Canceled:
                     //currentGun.OnTouchEnd(touch.position);
                     Vector2 worldPoss = Camera.main.ScreenToWorldPoint(touch.position);
                     Vector2 direction = (worldPoss - (Vector2)transform.position).normalized;
-                    Fire(direction);
+                    if (currentGun.fireMode == GunBase.FireMode.Manual) Fire(direction);
+                    currentGun.OnTouchEnd(touch.position);
                     StopAiming();
                     break;
             }
         }
         else {
+            currentGun.OnTouchEnd(Vector2.zero);
             StopAiming();
         }
         //#endif
