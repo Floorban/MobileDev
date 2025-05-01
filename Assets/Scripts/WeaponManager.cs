@@ -23,7 +23,10 @@ public class WeaponManager : MonoBehaviour
         aimLine = GetComponent<LineRenderer>();
         if (aimLine) aimLine.enabled = false;
         if (allGuns.Length > 0) currentGun = allGuns[0];
-        if (currentGun) currentGun.Initialize();
+        if (currentGun) {
+            currentGun.Initialize();
+            currentGun.Setup(player);
+        }
     }
     private void Update() {
         HandleShootInput();
@@ -59,29 +62,23 @@ public class WeaponManager : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             switch (touch.phase) {
                 case TouchPhase.Began:
-                    if (currentGun.fireMode == GunBase.FireMode.Manual)
-                        StartAiming();
                     currentGun.OnTouchBegin(touch.position);
+                    if (currentGun.fireMode != GunBase.FireMode.Auto)
+                        StartAiming();
                     break;
                 case TouchPhase.Moved:
                 case TouchPhase.Stationary:
                     currentGun.OnTouchDrag(touch.position);
-                    Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    UpdateAimLine(worldPos);
+                    UpdateAimLine(currentGun.aimDir);
                     break;
                 case TouchPhase.Ended:
                 case TouchPhase.Canceled:
-                    //currentGun.OnTouchEnd(touch.position);
-                    Vector2 worldPoss = Camera.main.ScreenToWorldPoint(touch.position);
-                    Vector2 direction = (worldPoss - (Vector2)transform.position).normalized;
-                    if (currentGun.fireMode == GunBase.FireMode.Manual) Fire(direction);
-                    currentGun.OnTouchEnd(touch.position);
+                    currentGun.OnTouchEnd();
                     StopAiming();
                     break;
             }
         }
         else {
-            currentGun.OnTouchEnd(Vector2.zero);
             StopAiming();
         }
         //#endif
@@ -109,7 +106,7 @@ public class WeaponManager : MonoBehaviour
                 Vector2 swipeEndPos = (t1.position + t2.position) / 2f;
                 Vector2 swipeDelta = swipeEndPos - swipeStartPos;
 
-                if (Mathf.Abs(swipeDelta.y) > 100f && Mathf.Abs(swipeDelta.y) > Mathf.Abs(swipeDelta.x)) {
+                if (Mathf.Abs(swipeDelta.y) > cycleDistance) {
                         CycleGun(swipeDelta.y);
                 }
 
@@ -133,11 +130,7 @@ public class WeaponManager : MonoBehaviour
 
         currentGun = allGuns[currentIndex];
         if (currentGun)
-            currentGun.Setup();
-    }
-    private Vector2 GetAimDir(Vector2 screenPos) {
-        Vector2 worldPos = Camera.main.ScreenToViewportPoint(screenPos);
-        return (worldPos - (Vector2)transform.position).normalized;
+            currentGun.Setup(player);
     }
     private void StartAiming() {
         if (isAiming) return;
@@ -158,17 +151,5 @@ public class WeaponManager : MonoBehaviour
         aimLine.SetPosition(0, currentGun.shootPoint.position);
         //aimLine.SetPosition(1, (Vector2)transform.position + aimDir * 5f);
         aimLine.SetPosition(1, touchWorldPos);
-    }
-    private void Fire(Vector2 direction) {
-        if (!currentGun || !currentGun.TryFire(currentGun.AmmoCostPerShot)) return;
-
-        currentGun.ShootProjectile(currentGun.inputAimDIr * direction);
-        //currentGun.OnTouchEnd(direction);
-
-        if (player) {
-            player.ApplyRecoil(currentGun.inputAimDIr * direction, currentGun.recoilForce);
-            StartCoroutine(player.RecoilSquash());
-            StartCoroutine(player.ShootPause());
-        }
     }
 }

@@ -78,16 +78,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d97a69cf487d64e9c98cdfa5fac353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoReload: 1
+  reverseAimDir: 0
+  inputAimDIr: 1
+  autoReload: 0
   clipSize: 12
   cooldown: 0.8
   bulletSpeed: 15
   recoilForce: 5
+  bulletLifetime: 1
   baseDamage: 0
   bulletPrefab: {fileID: 8960536926405029604, guid: 3621b23179a1afb4192551b2c8c4719d, type: 3}
   shootPoint: {fileID: 3198719049210338770}
+  canShoot: 1
   pelletCount: 6
   spreadAngle: 20
+  speedRandom: 5
 --- !u!4 &3198719049210338770 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4548743301803887885, guid: dccb218818b07724a96f7c2cfcc72368, type: 3}

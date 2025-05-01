@@ -80,7 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reverseAimDir: 0
   inputAimDIr: 1
-  autoReload: 1
+  autoReload: 0
   clipSize: 6
   cooldown: 0.3
   bulletSpeed: 20
@@ -91,6 +91,7 @@ MonoBehaviour:
   shootPoint: {fileID: 4384165908474594654}
   canShoot: 1
   fireRate: 10
+  fireSpeed: 1
 --- !u!4 &4384165908474594654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4548743301803887885, guid: dccb218818b07724a96f7c2cfcc72368, type: 3}

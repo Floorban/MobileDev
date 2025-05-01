@@ -10,9 +10,11 @@ public class PlayerController : MonoBehaviour {
     private int moveDir = 1; // 1 for right, -1 for left
 
     [Header("RecoilEffect")]
+    private Vector3 originalScale;
     [SerializeField] private float movePauseDuration = 0.2f;
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
+        originalScale = transform.localScale;
     }
     private void FixedUpdate() {
         HorizonMove();
@@ -21,7 +23,7 @@ public class PlayerController : MonoBehaviour {
         if (collision.collider.CompareTag("Wall")) {
             foreach (ContactPoint2D contact in collision.contacts) {
                 // hit from the side
-                if (Mathf.Abs(contact.normal.x) > 0.2f) {
+                if (Mathf.Abs(contact.normal.x) > 0.1f) {
                     Flip();
                     break;
                 }
@@ -71,7 +73,11 @@ public class PlayerController : MonoBehaviour {
     }
 #endif
     }*/
-
+    public void ApplyRecoil(Vector2 dir, float force) {
+        rb.AddForce(-dir.normalized * force, ForceMode2D.Impulse);
+        StartCoroutine(ShootPause());
+        StartCoroutine(RecoilSquash());
+    }
     public IEnumerator ShootPause() {
         canMove = false;
         // set the duration depending on the current weapon (type and recoil)
@@ -79,12 +85,8 @@ public class PlayerController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(movePauseDuration);
         canMove = true; 
     }
-    public void ApplyRecoil(Vector2 dir, float force) {
-        rb.AddForce(-dir.normalized * force, ForceMode2D.Impulse);
-    }
     // TO DO: use leantween or dotween to replace the effect later
     public IEnumerator RecoilSquash(float duration = 0.1f, float squashAmount = 0.8f) {
-        Vector3 originalScale = transform.localScale;
         Vector3 squashed = new Vector3(originalScale.x * squashAmount, originalScale.y / squashAmount, originalScale.z);
         transform.localScale = squashed;
 

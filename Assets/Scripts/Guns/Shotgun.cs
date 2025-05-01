@@ -11,18 +11,23 @@ public class Shotgun : GunController
 
     public override void Initialize() {
         canShoot = true;
-        Setup();
     }
     public override void OnTouchBegin(Vector2 screenPos) {
+        //aimDir = GetAimDir(screenPos);
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
-        aimDir = (worldPos - (Vector2)transform.position).normalized;
+        aimDir = (worldPos - (Vector2)transform.position);
     }
     public override void OnTouchDrag(Vector2 screenPos) {
+        //aimDir = GetAimDir(screenPos);
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
-        aimDir = (worldPos - (Vector2)transform.position).normalized;
+        aimDir = (worldPos - (Vector2)transform.position);
     }
-    public override void OnTouchEnd(Vector2 screenPos) {
-       // Fire(aimDir, AmmoCostPerShot);
+    public override void OnTouchEnd() {
+        if (!TryFire(AmmoCostPerShot))
+            return;
+
+        ShootProjectile(aimDir);
+        player.ApplyRecoil(-inputAimDIr * aimDir, recoilForce);
     }
     public override void ShootProjectile(Vector2 baseDirection) {
         float baseAngle = Mathf.Atan2(baseDirection.y, baseDirection.x) * Mathf.Rad2Deg;
@@ -36,7 +41,9 @@ public class Shotgun : GunController
 
             float speed = Random.Range(bulletSpeed - speedRandom, bulletSpeed + speedRandom);
             GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
-            bullet.GetComponent<Rigidbody2D>().linearVelocity = shotDir * speed;
+            var brb = bullet.GetComponent<Rigidbody2D>();
+            brb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            brb.linearVelocity = shotDir * speed;
             Destroy(bullet, bulletLifetime);
         }
     }

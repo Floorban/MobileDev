@@ -3,8 +3,10 @@ using UnityEngine;
 public class GunBase : MonoBehaviour {
     public enum FireMode {
         Manual,
-        Auto
+        Auto,
+        Charge
     }
+    protected PlayerController player;
 
     [Header("Gun Stats")]
     public bool reverseAimDir;
@@ -25,7 +27,7 @@ public class GunBase : MonoBehaviour {
     public bool canShoot = true;
     protected float lastShotTime;
     protected bool isReloading = false;
-    protected Vector2 aimDir;
+    [HideInInspector] public  Vector2 aimDir;
     private void Awake() {
         currentAmmo = clipSize;
         if (reverseAimDir)
@@ -33,7 +35,8 @@ public class GunBase : MonoBehaviour {
         else
             inputAimDIr = 1;
     }
-    public virtual void Setup() {
+    public virtual void Setup(PlayerController p) {
+        player = p;
         if (reverseAimDir)
             inputAimDIr = -1;
         else
@@ -57,9 +60,13 @@ public class GunBase : MonoBehaviour {
             canShoot = false;
             Invoke(nameof(ResetCooldown), cooldown);
         }*/
-    public bool TryFire(int consumedAmmo) {
+    protected Vector2 GetAimDir(Vector2 screenPos) {
+        Vector2 worldPos = Camera.main.ScreenToViewportPoint(screenPos);
+        return (worldPos - (Vector2)transform.position);
+    }
+    public bool TryFire(int consumedAmmo, bool isAuto = false) {
         // try consume ammo and check cooldown first
-        if (currentAmmo <= 0 || !canShoot || Time.time - lastShotTime < cooldown)
+        if (currentAmmo <= 0 || !canShoot || (!isAuto && Time.time - lastShotTime < cooldown))
             return false;
 
         // - used amount of ammo
@@ -67,9 +74,10 @@ public class GunBase : MonoBehaviour {
         Debug.Log(currentAmmo + " left");
         // activate cooldown
         lastShotTime = Time.time;
-        canShoot = false;
-        Invoke(nameof(ResetCooldown), cooldown);
-
+        if (!isAuto) {
+            canShoot = false;
+            Invoke(nameof(ResetCooldown), cooldown);
+        }
         if (currentAmmo <= 0 && autoReload) Reload();
         return true;
     }
