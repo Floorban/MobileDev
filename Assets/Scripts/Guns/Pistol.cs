@@ -18,7 +18,7 @@ public class Pistol : GunController
     public override void OnTouchEnd() {
         if (!TryFire(AmmoCostPerShot)) return;
 
-        ShootProjectile(aimDir);
+        ShootProjectile(inputAimDIr * aimDir);
         player.ApplyRecoil(inputAimDIr * aimDir, recoilForce);
     }
     public override void ShootProjectile(Vector2 direction) {

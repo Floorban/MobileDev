@@ -824,7 +824,7 @@ PrefabInstance:
     - target: {fileID: 114743416837630721, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
       propertyPath: 'allGuns.Array.data[0]'
       value: 
-      objectReference: {fileID: 1869942629}
+      objectReference: {fileID: 201991072}
     - target: {fileID: 114743416837630721, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
       propertyPath: 'allGuns.Array.data[1]'
       value: 
@@ -832,7 +832,7 @@ PrefabInstance:
     - target: {fileID: 114743416837630721, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
       propertyPath: 'allGuns.Array.data[2]'
       value: 
-      objectReference: {fileID: 201991072}
+      objectReference: {fileID: 1869942629}
     - target: {fileID: 952903883643036353, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -885,9 +885,21 @@ PrefabInstance:
       propertyPath: recoilForce
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5946880597954136939, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
+      propertyPath: reverseAimDir
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7913725524309860818, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8710219848955722271, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
+      propertyPath: autoReload
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8710219848955722271, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
+      propertyPath: reverseAimDir
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

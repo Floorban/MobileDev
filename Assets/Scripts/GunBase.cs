@@ -66,7 +66,7 @@ public class GunBase : MonoBehaviour {
     }
     public bool TryFire(int consumedAmmo, bool isAuto = false) {
         // try consume ammo and check cooldown first
-        if (currentAmmo <= 0 || !canShoot || (!isAuto && Time.time - lastShotTime < cooldown))
+        if (currentAmmo <= 0 || (!isAuto && !canShoot) || Time.time - lastShotTime < cooldown)
             return false;
 
         // - used amount of ammo
@@ -78,7 +78,12 @@ public class GunBase : MonoBehaviour {
             canShoot = false;
             Invoke(nameof(ResetCooldown), cooldown);
         }
-        if (currentAmmo <= 0 && autoReload) Reload();
+        if (currentAmmo <= 0) {
+            canShoot = false;
+            if (autoReload) {
+                Reload();
+            }
+        }
         return true;
     }
     protected void ResetCooldown() {
@@ -94,6 +99,7 @@ public class GunBase : MonoBehaviour {
     protected void FinishReload() {
         currentAmmo = clipSize;
         isReloading = false;
+        canShoot = true;
         Debug.Log("reloaded");
     }
 }

@@ -26,8 +26,8 @@ public class Shotgun : GunController
         if (!TryFire(AmmoCostPerShot))
             return;
 
-        ShootProjectile(aimDir);
-        player.ApplyRecoil(-inputAimDIr * aimDir, recoilForce);
+        ShootProjectile(inputAimDIr * aimDir);
+        player.ApplyRecoil(inputAimDIr * aimDir, recoilForce);
     }
     public override void ShootProjectile(Vector2 baseDirection) {
         float baseAngle = Mathf.Atan2(baseDirection.y, baseDirection.x) * Mathf.Rad2Deg;
