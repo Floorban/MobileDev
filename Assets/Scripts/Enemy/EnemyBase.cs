@@ -7,7 +7,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
 {
     public EnemyStats stats;
     protected HealthSystem health;
-    protected bool canBeDamaged = false;
+    public bool canBeDamaged = true;
     protected bool canAct = true;
     
     
@@ -15,14 +15,22 @@ public class EnemyBase : MonoBehaviour, IDamageable
         if (!canBeDamaged) return;
 
         health.Damage(damageAmount);
-        StartCoroutine(Invincible(stats.invincibleTime));
-        StartCoroutine(StunRecovery(stun));
+
+        if (health.GetHealth() <= 0) {
+            Die();
+        }
+        else {
+            StartCoroutine(Invincible(stats.invincibleTime));
+            StartCoroutine(StunRecovery(stun));
+        }
     }
 
-    private void Awake() {
+    private void Start() {
         health = GetComponent<HealthManager>().healthSystem;
     }
-
+    public virtual void Die() {
+        Destroy(gameObject, 0f);
+    }
     private IEnumerator Invincible(float duration) {
         if (canBeDamaged) {
             canBeDamaged = false;

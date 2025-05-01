@@ -17,7 +17,7 @@ public class GunBase : MonoBehaviour {
     public float bulletSpeed = 20f;
     public float recoilForce = 5f;
     [SerializeField] protected float bulletLifetime = 1f;
-    [HideInInspector] public int baseDamage;
+    public int baseDamage;
 
     [Header("References")]
     [SerializeField] protected GameObject bulletPrefab;
