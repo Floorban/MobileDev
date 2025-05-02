@@ -11,10 +11,6 @@ public class Rifle : GunController
     [SerializeField] private bool isOverheated = false;
     public override int AmmoCostPerShot => 1;
     public override FireMode fireMode => FireMode.Auto;
-
-    public override void Initialize() {
-        canShoot = true;
-    }
     private void FixedUpdate() {
         currentHeat = Mathf.Max(currentHeat, 0f);
         if (currentHeat > 0f)
@@ -31,7 +27,7 @@ public class Rifle : GunController
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
         aimDir = (worldPos - (Vector2)transform.position).normalized;
 
-        if (Time.time - lastShotTime >= cooldown && TryFire(AmmoCostPerShot, true)) {
+        if (Time.time - lastShotTime >= cooldown && TryFire(AmmoCostPerShot, fireMode)) {
             ShootProjectile(inputAimDIr * aimDir);
             currentHeat += heatPerShot;
             if (currentHeat >= maxHeat) {

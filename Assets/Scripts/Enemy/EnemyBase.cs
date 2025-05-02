@@ -10,7 +10,6 @@ public class EnemyBase : MonoBehaviour, IDamageable
     public bool canBeDamaged = true;
     protected bool canAct = true;
     
-    
     public void TakeDamage(int damageAmount, float stun) {
         if (!canBeDamaged) return;
 

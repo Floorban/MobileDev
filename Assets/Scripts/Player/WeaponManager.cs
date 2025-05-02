@@ -23,10 +23,8 @@ public class WeaponManager : MonoBehaviour
         aimLine = GetComponent<LineRenderer>();
         if (aimLine) aimLine.enabled = false;
         if (allGuns.Length > 0) currentGun = allGuns[0];
-        if (currentGun) {
-            currentGun.Initialize();
+        if (currentGun)
             currentGun.Setup(player);
-        }
 
 #if UNITY_EDITOR || UNITY_STANDALONE
         Debug.Log("not on mobile");
@@ -40,7 +38,7 @@ public class WeaponManager : MonoBehaviour
         HandleSwitchWeaponInput();
     }
     private void HandleShootInput() {
-#if UNITY_EDITOR || UNITY_STANDALONE
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
         if (Input.GetMouseButtonDown(0)) {
             currentGun.OnTouchBegin(Input.mousePosition);
             StartAiming();
@@ -80,7 +78,7 @@ public class WeaponManager : MonoBehaviour
  #endif
     }
     private void HandleReloadInput() {
-#if UNITY_EDITOR || UNITY_STANDALONE
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
         if (Input.GetKeyDown(KeyCode.R))
             currentGun.Reload();
 #elif UNITY_IOS || UNITY_ANDROID
@@ -93,7 +91,7 @@ public class WeaponManager : MonoBehaviour
     private Vector2 swipeStartPos;
     private bool isSwipingTwoFingers = false;
     private void HandleSwitchWeaponInput() {
-#if UNITY_EDITOR || UNITY_STANDALONE
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
         if (Input.mouseScrollDelta.y != 0)
             CycleGun(Input.mouseScrollDelta.y);
 #elif UNITY_IOS || UNITY_ANDROID

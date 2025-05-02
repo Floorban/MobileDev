@@ -8,10 +8,6 @@ public class Shotgun : GunController
     public float speedRandom = 5f;
     public override int AmmoCostPerShot => pelletCount;
     public override FireMode fireMode => FireMode. Manual;
-
-    public override void Initialize() {
-        canShoot = true;
-    }
     public override void OnTouchBegin(Vector2 screenPos) {
         //aimDir = GetAimDir(screenPos);
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
@@ -23,7 +19,7 @@ public class Shotgun : GunController
         aimDir = (worldPos - (Vector2)transform.position);
     }
     public override void OnTouchEnd() {
-        if (!TryFire(AmmoCostPerShot))
+        if (!TryFire(AmmoCostPerShot, fireMode))
             return;
 
         ShootProjectile(inputAimDIr * aimDir);

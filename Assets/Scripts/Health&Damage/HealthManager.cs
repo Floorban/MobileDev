@@ -23,7 +23,6 @@ public class HealthManager : MonoBehaviour
     public GameObject heartPrefab;
     private List<GameObject> lives;
     
-
     [HideInInspector]public HealthSystem healthSystem;
 
     private void Awake()

@@ -29,25 +29,18 @@ public class GunBase : MonoBehaviour {
     protected bool isReloading = false;
     [HideInInspector] public  Vector2 aimDir;
     private void Awake() {
+        canShoot = true;
         currentAmmo = clipSize;
-        if (reverseAimDir)
-            inputAimDIr = -1;
-        else
-            inputAimDIr = 1;
+        inputAimDIr = GetInputDir(reverseAimDir);
     }
     public virtual void Setup(PlayerController p) {
         player = p;
-        if (reverseAimDir)
-            inputAimDIr = -1;
-        else
-            inputAimDIr = 1;
-
+        inputAimDIr = GetInputDir(reverseAimDir);
         lastShotTime = -1;
         Debug.Log(name + " in hand");
     }
 
-    /*    
-     *    // handle different fire logic with abstract class now
+    /*    // handle different fire logic with abstract class now
      *    protected void Fire(Vector2 direction) {
             if (!canShoot || currentAmmo <= 0)
                 return;
@@ -64,26 +57,37 @@ public class GunBase : MonoBehaviour {
         Vector2 worldPos = Camera.main.ScreenToViewportPoint(screenPos);
         return (worldPos - (Vector2)transform.position);
     }
-    public bool TryFire(int consumedAmmo, bool isAuto = false) {
+    private int GetInputDir(bool reverseInputDir) {
+        if (reverseInputDir)
+            return -1;
+        else
+            return 1;
+    }
+    public bool TryFire(int consumedAmmo, FireMode fireMode) {
         // try consume ammo and check cooldown first
-        if (currentAmmo <= 0 || (!isAuto && !canShoot) || Time.time - lastShotTime < cooldown)
+        if (currentAmmo <= 0 || (fireMode != FireMode.Auto && !canShoot) || Time.time - lastShotTime < cooldown)
             return false;
 
         // - used amount of ammo
-        currentAmmo -= consumedAmmo;
-        Debug.Log(currentAmmo + " left");
-        // activate cooldown
-        lastShotTime = Time.time;
-        if (!isAuto) {
+        if (fireMode != FireMode.Charge) {
+            currentAmmo -= consumedAmmo;
+            Debug.Log(currentAmmo + " left");
+        }
+
+        if (fireMode != FireMode.Auto) {
             canShoot = false;
             Invoke(nameof(ResetCooldown), cooldown);
         }
+
         if (currentAmmo <= 0) {
             canShoot = false;
             if (autoReload) {
                 Reload();
             }
         }
+
+        // activate cooldown
+        lastShotTime = Time.time;
         return true;
     }
     protected void ResetCooldown() {
@@ -94,12 +98,13 @@ public class GunBase : MonoBehaviour {
         isReloading = true;
         Debug.Log("reloading");
         // add anim and sfx here
+        // TO DO: get the reload duration from each gun's scriptable stats 
         Invoke(nameof(FinishReload), 1f);
     }
     protected void FinishReload() {
         currentAmmo = clipSize;
         isReloading = false;
         canShoot = true;
-        Debug.Log("reloaded");
+        Debug.Log("finish reload");
     }
 }
