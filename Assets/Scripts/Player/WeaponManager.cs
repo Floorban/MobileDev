@@ -123,7 +123,10 @@ public class WeaponManager : MonoBehaviour
         }
 #endif
     }
+    [SerializeField] private float cycleCooldown = 0.3f;
+    private float lastCycleTime = -Mathf.Infinity;
     private void CycleGun(float cycleOrder) {
+        if (Time.time - lastCycleTime <= cycleCooldown) return;
         if (cycleOrder < 0) { // cycle down
             currentIndex = (currentIndex + 1) % allGuns.Length; 
         }
@@ -137,6 +140,7 @@ public class WeaponManager : MonoBehaviour
         currentGun = allGuns[currentIndex];
         if (currentGun)
             currentGun.Setup(player);
+        lastCycleTime = Time.time;
     }
     private void StartAiming() {
         if (currentGun.fireMode == GunBase.FireMode.Auto || isAiming) return;
