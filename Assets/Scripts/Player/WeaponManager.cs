@@ -27,6 +27,12 @@ public class WeaponManager : MonoBehaviour
             currentGun.Initialize();
             currentGun.Setup(player);
         }
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+        Debug.Log("not on mobile");
+#elif UNITY_IOS || UNITY_ANDROID
+        Debug.Log("on mobile");
+#endif
     }
     private void Update() {
         HandleShootInput();
@@ -34,38 +40,27 @@ public class WeaponManager : MonoBehaviour
         HandleSwitchWeaponInput();
     }
     private void HandleShootInput() {
-/*#if UNITY_EDITOR || UNITY_STANDALONE
-*//*        if (Input.GetMouseButtonDown(0))
-            currentGun.OnTouchBegin(Input.mousePosition);
-        else if (Input.GetMouseButton(0))
-            currentGun.OnTouchDrag(Input.mousePosition);
-        else if (Input.GetMouseButtonUp(0))
-            currentGun.OnTouchEnd(Input.mousePosition);*//*
-
+#if UNITY_EDITOR || UNITY_STANDALONE
         if (Input.GetMouseButtonDown(0)) {
+            currentGun.OnTouchBegin(Input.mousePosition);
             StartAiming();
         }
         else if (Input.GetMouseButton(0)) {
-            Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            UpdateAimLine(worldPos);
+            currentGun.OnTouchDrag(Input.mousePosition);
+            UpdateAimLine(currentGun.aimDir);
         }
         else if (Input.GetMouseButtonUp(0)) {
-            Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 direction = (worldPos - (Vector2)transform.position).normalized;
-            Fire(direction);
+            currentGun.OnTouchEnd();
             StopAiming();
         }
-        if (Input.GetKeyDown(KeyCode.Tab))
-            CycleGun();
-#elif UNITY_IOS || UNITY_ANDROID*/
+#elif UNITY_IOS || UNITY_ANDROID
         if (Input.touchCount == 1) {
             Touch touch = Input.GetTouch(0);
             if (isSwipingTwoFingers) return;
             switch (touch.phase) {
                 case TouchPhase.Began:
                     currentGun.OnTouchBegin(touch.position);
-                    if (currentGun.fireMode != GunBase.FireMode.Auto)
-                        StartAiming();
+                    StartAiming();
                     break;
                 case TouchPhase.Moved:
                 case TouchPhase.Stationary:
@@ -82,17 +77,26 @@ public class WeaponManager : MonoBehaviour
         else {
             StopAiming();
         }
-        //#endif
+ #endif
     }
     private void HandleReloadInput() {
+#if UNITY_EDITOR || UNITY_STANDALONE
+        if (Input.GetKeyDown(KeyCode.R))
+            currentGun.Reload();
+#elif UNITY_IOS || UNITY_ANDROID
         Vector3 acc = Input.acceleration;
         if (acc.sqrMagnitude > shakeIntensity) {
             currentGun.Reload();
         }
+#endif
     }
     private Vector2 swipeStartPos;
     private bool isSwipingTwoFingers = false;
     private void HandleSwitchWeaponInput() {
+#if UNITY_EDITOR || UNITY_STANDALONE
+        if (Input.mouseScrollDelta.y != 0)
+            CycleGun(Input.mouseScrollDelta.y);
+#elif UNITY_IOS || UNITY_ANDROID
         if (Input.touchCount == 2) {
             Touch t1 = Input.GetTouch(0);
             Touch t2 = Input.GetTouch(1);
@@ -117,6 +121,7 @@ public class WeaponManager : MonoBehaviour
         else {
             isSwipingTwoFingers = false;  
         }
+#endif
     }
     private void CycleGun(float cycleOrder) {
         if (cycleOrder < 0) { // cycle down
@@ -134,7 +139,7 @@ public class WeaponManager : MonoBehaviour
             currentGun.Setup(player);
     }
     private void StartAiming() {
-        if (isAiming) return;
+        if (currentGun.fireMode == GunBase.FireMode.Auto || isAiming) return;
         isAiming = true;
         // TO DO: using private multipliers instead of timescale for all the dynamic objects slater
         Time.timeScale = slowMotionScale;
@@ -150,7 +155,7 @@ public class WeaponManager : MonoBehaviour
     private void UpdateAimLine(Vector2 touchWorldPos) {
         if (!aimLine) return;
         aimLine.SetPosition(0, currentGun.shootPoint.position);
-        //aimLine.SetPosition(1, (Vector2)transform.position + aimDir * 5f);
-        aimLine.SetPosition(1, touchWorldPos);
+        aimLine.SetPosition(1, (Vector2)transform.position + currentGun.aimDir);
+        //aimLine.SetPosition(1, touchWorldPos);
     }
 }
