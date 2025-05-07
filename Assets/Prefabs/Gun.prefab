@@ -45,13 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d61d567c1214d2640b81a828e403c519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clipSize: 6
-  cooldown: 0.3
-  bulletSpeed: 20
-  recoilForce: 5
+  stats: {fileID: 11400000, guid: 9fb919e8291a3ed40a11421bd996c9c0, type: 2}
   bulletPrefab: {fileID: 8960536926405029604, guid: 3621b23179a1afb4192551b2c8c4719d, type: 3}
   shootPoint: {fileID: 4548743301803887885}
-  autoReload: 0
+  canShoot: 1
+  aimDir: {x: 0, y: 0}
 --- !u!1 &3818203149378377055
 GameObject:
   m_ObjectHideFlags: 0

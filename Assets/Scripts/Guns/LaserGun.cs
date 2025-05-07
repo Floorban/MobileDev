@@ -15,8 +15,8 @@ public class LaserGun : GunController {
         if (!TryFire(AmmoCostPerShot, fireMode))
             return;
 
-        ShootProjectile(inputAimDIr * aimDir);
-        player.ApplyRecoil(inputAimDIr * aimDir, recoilForce);
+        //ShootProjectile(stats.inputAimDIr * aimDir);
+        //player.ApplyRecoil(stats.inputAimDIr * aimDir, stats.recoilForce);
     }
     public override void ShootProjectile(Vector2 direction) {
         throw new System.NotImplementedException();

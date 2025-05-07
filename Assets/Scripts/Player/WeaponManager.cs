@@ -5,6 +5,7 @@ using TouchPhase = UnityEngine.TouchPhase;
 public class WeaponManager : MonoBehaviour
 {
     private PlayerController player;
+    private IInput input;
 
     public GunController[] allGuns;
     public GunController currentGun;
@@ -15,27 +16,35 @@ public class WeaponManager : MonoBehaviour
     private bool isAiming = false;
     [SerializeField] private float slowMotionScale = 0.3f;
 
+    [Header("Raycast Settings")]
+    public int reflections;
+    public float maxRayDistance = 10f;
+    public LayerMask layerDetection;
+
     [Header("InputIntensity")]
     public float shakeIntensity = 10f;
     public float cycleDistance = 100f;
     private void Awake() {
         player = GetComponentInParent<PlayerController>();
+        Physics2D.queriesStartInColliders = false;
         aimLine = GetComponent<LineRenderer>();
         if (aimLine) aimLine.enabled = false;
         if (allGuns.Length > 0) currentGun = allGuns[0];
         if (currentGun)
             currentGun.Setup(player);
-
+          
 #if UNITY_EDITOR || UNITY_STANDALONE
-        Debug.Log("not on mobile");
+        input = new DesktopInput();
+        //input = new MobileInput();
 #elif UNITY_IOS || UNITY_ANDROID
-        Debug.Log("on mobile");
+        input = new MobileInput();
 #endif
     }
     private void Update() {
-        HandleShootInput();
-        HandleReloadInput();
-        HandleSwitchWeaponInput();
+        input?.HandleInput(this);
+        //HandleShootInput();
+        //HandleReloadInput();
+        //HandleSwitchWeaponInput();
     }
     private void HandleShootInput() {
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
@@ -88,8 +97,8 @@ public class WeaponManager : MonoBehaviour
         }
 #endif
     }
-    private Vector2 swipeStartPos;
-    private bool isSwipingTwoFingers = false;
+    public Vector2 swipeStartPos;
+    public bool isSwipingTwoFingers = false;
     private void HandleSwitchWeaponInput() {
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
         if (Input.mouseScrollDelta.y != 0)
@@ -123,7 +132,7 @@ public class WeaponManager : MonoBehaviour
     }
     [SerializeField] private float cycleCooldown = 0.3f;
     private float lastCycleTime = -Mathf.Infinity;
-    private void CycleGun(float cycleOrder) {
+    public void CycleGun(float cycleOrder) {
         if (Time.time - lastCycleTime <= cycleCooldown) return;
         if (cycleOrder < 0) { // cycle down
             currentIndex = (currentIndex + 1) % allGuns.Length; 
@@ -140,7 +149,7 @@ public class WeaponManager : MonoBehaviour
             currentGun.Setup(player);
         lastCycleTime = Time.time;
     }
-    private void StartAiming() {
+    public void StartAiming() {
         if (currentGun.fireMode == GunBase.FireMode.Auto || isAiming) return;
         isAiming = true;
         // TO DO: using private multipliers instead of timescale for all the dynamic objects slater
@@ -148,16 +157,23 @@ public class WeaponManager : MonoBehaviour
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
         if (aimLine) aimLine.enabled = true;
     }
-    private void StopAiming() {
+    public void StopAiming() {
         isAiming = false;
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;
         if(aimLine) aimLine.enabled = false;
     }
-    private void UpdateAimLine(Vector2 touchWorldPos) {
+    public void UpdateAimLine(Vector2 touchWorldPos) {
         if (!aimLine) return;
-        aimLine.SetPosition(0, currentGun.shootPoint.position);
-        aimLine.SetPosition(1, (Vector2)transform.position + currentGun.aimDir);
-        //aimLine.SetPosition(1, touchWorldPos);
+        aimLine.positionCount = 2;
+        aimLine.SetPosition(0, transform.position);
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, currentGun.aimDir, maxRayDistance, layerDetection);
+        if (hitInfo) {
+            aimLine.SetPosition(1, hitInfo.point);
+        }
+        else {
+            aimLine.SetPosition(1, (Vector2)transform.position + touchWorldPos);
+            //aimLine.SetPosition(1, touchWorldPos.normalized * maxRayDistance);
+        }
     }
 }

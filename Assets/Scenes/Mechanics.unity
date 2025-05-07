@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &315293998 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5946880597954136939, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
+  m_PrefabInstance: {fileID: 9141938216982161855}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2d97a69cf487d64e9c98cdfa5fac353, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,6 +753,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1186783279 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2609547342576380772, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
+  m_PrefabInstance: {fileID: 9141938216982161855}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb312e73d8d3f8b4598aa1ef6b0a0693, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1455846845
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,6 +875,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114743416837630721, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
+      propertyPath: maxRayDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114743416837630721, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
+      propertyPath: 'allGuns.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1186783279}
+    - target: {fileID: 114743416837630721, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
+      propertyPath: 'allGuns.Array.data[1]'
+      value: 
+      objectReference: {fileID: 315293998}
     - target: {fileID: 952903883643036353, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -896,6 +930,18 @@ PrefabInstance:
     - target: {fileID: 2609547342576380772, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
       propertyPath: baseDamage
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4075097650580643994, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4075097650580643994, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4075097650580643994, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 0.3150927
       objectReference: {fileID: 0}
     - target: {fileID: 5946880597954136939, guid: 68546ae327aab8f44af2ccd0c68d52f7, type: 3}
       propertyPath: baseDamage
