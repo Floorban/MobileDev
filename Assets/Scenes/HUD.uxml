@@ -1,7 +1,7 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <engine:ProgressBar value="25.9" title="my-progress" name="ProgressBar">
         <Bindings>
-            <engine:DataBinding property="value" data-source-path="value" data-source="project://database/Assets/Scenes/HealthStats.asset?fileID=11400000&amp;guid=568b6107be8bbc34f82661914f430f40&amp;type=2#HealthStats" binding-mode="ToTarget" />
+            <engine:DataBinding property="value" data-source-path="health" data-source="project://database/Assets/Scenes/HealthStats.asset?fileID=11400000&amp;guid=568b6107be8bbc34f82661914f430f40&amp;type=2#HealthStats" binding-mode="ToTarget" />
         </Bindings>
     </engine:ProgressBar>
 </engine:UXML>
