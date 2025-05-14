@@ -1,39 +1,13 @@
 using UnityEngine;
 
 public class MobileInput : IInput {
-    public void HandleInput(WeaponManager wManager) {
+/*    public void HandleInput(WeaponManager wManager) {
         HandleShootInput(wManager);
         HandleReloadInput(wManager);
         HandleSwitchWeaponInput(wManager);
     }
     private void HandleShootInput(WeaponManager wManager) {
-        if (Input.touchCount == 1) {
-            Touch touch = Input.GetTouch(0);
-            if (wManager.isSwipingTwoFingers)
-                return;
-            if (wManager.currentGun) {
-                GunController gun = wManager.currentGun;
-                switch (touch.phase) {
-                    case TouchPhase.Began:
-                        gun.OnTouchBegin(touch.position);
-                        wManager.StartAiming();
-                        break;
-                    case TouchPhase.Moved:
-                    case TouchPhase.Stationary:
-                        gun.OnTouchDrag(touch.position);
-                        wManager.UpdateAimLine(gun.aimDir);
-                        break;
-                    case TouchPhase.Ended:
-                    case TouchPhase.Canceled:
-                        gun.OnTouchEnd();
-                        wManager.StopAiming();
-                        break;
-                }
-            }
-        }
-        else {
-            wManager.StopAiming();
-        }
+
     }
     private void HandleReloadInput(WeaponManager wManager) {
         Vector3 acc = Input.acceleration;
@@ -66,5 +40,5 @@ public class MobileInput : IInput {
         else {
             wManager.isSwipingTwoFingers = false;
         }
-    }
+    }*/
 }

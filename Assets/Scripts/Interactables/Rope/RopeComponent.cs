@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RopeComponent : MonoBehaviour
@@ -25,7 +23,6 @@ public class RopeComponent : MonoBehaviour
         else
             segments = Mathf.CeilToInt(ropeLength * segmentsPerUnit);
 
-        //Vector3 cableDirection = (targetPoint - transform.position).normalized;
         Vector3 cableDirection = (targetTrans.position - startTrans.position).normalized;
 
         float initialSegmentLength = ropeLength / segments;
@@ -65,7 +62,6 @@ public class RopeComponent : MonoBehaviour
             ApplyRopePhysics();
             ApplyConstraints();
         }
-        //ApplyDragForce(dragForce);
     }
     public void DisableRope()
     {

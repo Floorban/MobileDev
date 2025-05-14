@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class PowerOutlet : MonoBehaviour
 {
+    [SerializeField] Ability power;
     private GameObject player;
     public float rangeRadius = 5f;
     private bool connected;
@@ -27,7 +28,8 @@ public class PowerOutlet : MonoBehaviour
             //WeaponFire(value);
             HandleWire(value);
             //HandleCam(value);
-            CheckUI(value);
+            //CheckUI(value);
+            power.Activation(value);
         }
     }
 
@@ -37,7 +39,7 @@ public class PowerOutlet : MonoBehaviour
         set
         {
             nearby = value;
-            CheckUI(value);
+            //CheckUI(value);
         }
     }
 
@@ -46,6 +48,7 @@ public class PowerOutlet : MonoBehaviour
         GetComponent<Collider2D>().isTrigger = true;
         rc = GetComponent<RopeComponent>();
         player = FindAnyObjectByType<PlayerAddon>().gameObject;
+        if (power) power.performPoint = player.transform;
         if (uiPanel != null)
         {
             uiPrompt = uiPanel.GetComponentInChildren<TextMeshProUGUI>();
@@ -69,7 +72,7 @@ public class PowerOutlet : MonoBehaviour
                 Connected = false;
         }
         else if (Connected)
-            rc.ropeLength = Mathf.Clamp(Vector3.Distance(transform.position, player.transform.position), 0.5f, Vector3.Distance(transform.position, player.transform.position));
+            rc.ropeLength = Mathf.Clamp(Vector3.Distance(transform.position, player.transform.position) - 1f, 0.5f, Vector3.Distance(transform.position, player.transform.position) - 1f);
     }
 
 /*    private void WeaponFire(bool enable)

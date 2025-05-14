@@ -56,11 +56,11 @@ public class RopePoint
         _boundRigid = to.GetComponent<Rigidbody>();
         _oldPosition = _position = to.position;
     }
-    public void UnBind()
+/*    public void UnBind()
     {
         _boundTo = null;
         _boundRigid = null;
-    }
+    }*/
     public bool IsFree()
     {
         return (_boundTo == null);

@@ -10,7 +10,6 @@ public class Rifle : GunController
     [SerializeField] private float currentHeat = 0f;
     [SerializeField] private bool isOverheated = false;
     public override int AmmoCostPerShot => 1;
-    public override FireMode fireMode => FireMode.Auto;
     private void FixedUpdate() {
         currentHeat = Mathf.Max(currentHeat, 0f);
         if (currentHeat > 0f)
@@ -18,30 +17,18 @@ public class Rifle : GunController
         if (isOverheated && currentHeat <= maxHeat * heatCooldown)
             isOverheated = false;
     }
-    public override void OnTouchBegin(Vector2 screenPos) {
-        Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
-        aimDir = (worldPos - (Vector2)transform.position).normalized;
-    }
-    public override void OnTouchDrag(Vector2 screenPos) {
-        if (isOverheated) return;
-        Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
-        aimDir = (worldPos - (Vector2)transform.position).normalized;
+    public override void Perform()
+    {
+        if (!TryFire(AmmoCostPerShot))
+            return;
 
-        if (Time.time - lastShotTime >= cooldown && TryFire(AmmoCostPerShot, fireMode)) {
-            ShootProjectile(inputAimDIr * aimDir);
-            currentHeat += heatPerShot;
-            if (currentHeat >= maxHeat) {
-                isOverheated = true;
-            }
-            if (canShoot)
-                player.ApplyRecoil(inputAimDIr * aimDir, recoilForce);
-        }
+        Vector2 dir = new Vector2(Random.Range(0, 1), Random.Range(0, 1));
+        ShootProjectile(dir);
+        player.ApplyRecoil(dir, recoilForce);
     }
-    public override void OnTouchEnd() {
-        //disable ui
-    }
+
     public override void ShootProjectile(Vector2 direction) {
-        GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         AttackComponent bac = bullet.AddComponent<AttackComponent>();
         bac.damageAmount = baseDamage;
         Rigidbody2D brb = bullet.GetComponent<Rigidbody2D>();
