@@ -12,26 +12,22 @@ public class StraightShoot : Ability
     {
         projectileLifetime = 2;
     }
-    protected override void Update()
+    private void Update()
     {
-        base.Update();
-
-        if (canPerform && shootDir != Vector2.zero)
-        {
-            Shoot(performPoint);
-            StartCooldown();
-        }
+        Shoot(performPoint);
     }
     private void Shoot(Transform shootPoint)
     {
-        if (!canPerform) return;
+        if (!canPerform || shootDir == Vector2.zero) return;
 
-        GameObject bullet = Instantiate(projectilePrefab, shootPoint.transform.position, Quaternion.identity);
+        GameObject bullet = Instantiate(projectilePrefab, shootPoint.transform.position, shootPoint.transform.rotation);
         AttackComponent bac = bullet.AddComponent<AttackComponent>();
         bac.damageAmount = baseDamage;
         Rigidbody2D brb = bullet.GetComponent<Rigidbody2D>();
         brb.constraints = RigidbodyConstraints2D.FreezeRotation;
         brb.linearVelocity = shootDir.normalized * projectileSpeed;
         Destroy(bullet, projectileLifetime);
+
+        StartCooldown();
     }
 }
