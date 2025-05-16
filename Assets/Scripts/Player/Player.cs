@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveDir;
     public float moveSpeed;
+    public float maxSpeed;
+    public float acceleration = 10f;
+    public float drag = 0.5f;
     private void Awake() {
         InitComponents();
         EnableJoystick();
@@ -25,6 +28,7 @@ public class Player : MonoBehaviour
     }
     private void InitComponents() {
         rb = GetComponent<Rigidbody2D>();
+        rb.linearDamping = drag;
     }
     private void EnableJoystick() {
         isJoystick = true;
@@ -36,7 +40,21 @@ public class Player : MonoBehaviour
         }
     }
     private void Move() {
-        rb.linearVelocity = moveDir * moveSpeed;
+        //rb.linearVelocity = moveDir * moveSpeed;
+
+        /*        Vector2 targetVelocity = moveDir * moveSpeed;
+                Vector2 velocityChange = targetVelocity - rb.linearVelocity;
+                velocityChange = Vector2.ClampMagnitude(velocityChange, acceleration * Time.fixedDeltaTime);
+                rb.AddForce(velocityChange, ForceMode2D.Impulse);*/
+
+        if (moveDir.sqrMagnitude > 0.01f) {
+            Vector2 force = moveDir * acceleration;
+            rb.AddForce(force, ForceMode2D.Force);
+        }
+
+        if (rb.linearVelocity.magnitude > maxSpeed) {
+            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+        }
     }
     public void ApplyRecoil(Vector2 dir, float force, float stunTime = 0.2f)
     {
