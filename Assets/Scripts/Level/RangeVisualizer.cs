@@ -33,7 +33,7 @@ public class RangeVisualizer : MonoBehaviour
         {
             float x = Mathf.Cos(Mathf.Deg2Rad * angle) * radius;
             float y = Mathf.Sin(Mathf.Deg2Rad * angle) * radius;
-            line.SetPosition(i, new Vector3(x, y, 0));
+            if(line) line.SetPosition(i, new Vector3(x, y, 0));
             angle += 360f / segments;
         }
     }

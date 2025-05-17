@@ -7,7 +7,6 @@ public class ChefStation : MonoBehaviour
 {
     private CircleCollider2D col;
     public ProjectileBehaviour projectile;
-    private GameObject playerObj;
     private Player player;
     private RangeVisualizer rangeVisual;
     public float triggerRange = 3f;
@@ -22,6 +21,7 @@ public class ChefStation : MonoBehaviour
         {
             nearby = value;
             rangeVisual.UpdateRange(value);
+            HandleBehaviour(value);
         }
     }
 
@@ -36,14 +36,13 @@ public class ChefStation : MonoBehaviour
         col = GetComponent<CircleCollider2D>();
         col.isTrigger = true;
         player = FindFirstObjectByType<Player>();
-        playerObj = player.gameObject;
         rangeVisual = GetComponent<RangeVisualizer>();
     }
     public void TryActivate(Player p)
     {
         if (CanActivate)
         {
-            projectile.Activate(p.transform.position, p.moveDir);
+            projectile.Activate(p.transform);
             cooldownTimer = projectile.cooldown;
         }
     }
@@ -52,6 +51,17 @@ public class ChefStation : MonoBehaviour
         triggerRange = newRange;
         col.radius = newRange;
         rangeVisual.SetRadius(newRange);
+    }
+    public void HandleBehaviour(bool active)
+    {
+        if (active)
+        {
+            //do cooldown ui
+        }
+        else
+        {
+            projectile.Deactivate();
+        }
     }
     void Update()
     {
@@ -62,12 +72,12 @@ public class ChefStation : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == playerObj)
+        if (collision.gameObject == player.gameObject)
             PlayerInRange = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject == playerObj)
+        if (collision.gameObject == player.gameObject)
             PlayerInRange = false;
     }
 }
