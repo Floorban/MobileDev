@@ -7,11 +7,14 @@ public class ChefStation : MonoBehaviour
 {
     private CircleCollider2D col;
     public ProjectileBehaviour projectile;
-    private GameObject player;
+    private GameObject playerObj;
+    private Player player;
     private RangeVisualizer rangeVisual;
     public float triggerRange = 3f;
     private bool nearby;
     private float cooldownTimer = 0f;
+    public bool CanActivate => projectile && nearby && cooldownTimer <= 0f;
+
     private bool PlayerInRange
     {
         get => nearby;
@@ -21,24 +24,27 @@ public class ChefStation : MonoBehaviour
             rangeVisual.UpdateRange(value);
         }
     }
+
     private void Awake()
     {
         InitComponents();
         UpdateRange(triggerRange);
     }
+
     private void InitComponents()
     {
         col = GetComponent<CircleCollider2D>();
         col.isTrigger = true;
-        player = FindFirstObjectByType<Player>().gameObject;
+        player = FindFirstObjectByType<Player>();
+        playerObj = player.gameObject;
         rangeVisual = GetComponent<RangeVisualizer>();
     }
-    public void TryActivate(Transform player)
+    public void TryActivate(Player p)
     {
-        if (PlayerInRange)
+        if (CanActivate)
         {
-/*            projectile.Activate(transform.position, player);
-            cooldownTimer = projectile.cooldown;*/
+            projectile.Activate(p.transform.position, p.moveDir);
+            cooldownTimer = projectile.cooldown;
         }
     }
     public void UpdateRange(float newRange)
@@ -51,15 +57,17 @@ public class ChefStation : MonoBehaviour
     {
         if (cooldownTimer > 0) cooldownTimer -= Time.deltaTime;
         else cooldownTimer = 0;
+
+        TryActivate(player);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == player)
+        if (collision.gameObject == playerObj)
             PlayerInRange = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject == player)
-            PlayerInRange = true;
+        if (collision.gameObject == playerObj)
+            PlayerInRange = false;
     }
 }

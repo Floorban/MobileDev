@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
 
     [Header("Movement")]
     private Rigidbody2D rb;
-    private Vector2 moveDir;
+    public Vector2 moveDir;
+    public Vector2 lastMoveDir;
     public float moveSpeed;
     public float maxSpeed;
     public float acceleration = 10f;
@@ -50,6 +51,7 @@ public class Player : MonoBehaviour
         if (moveDir.sqrMagnitude > 0.01f) {
             Vector2 force = moveDir * acceleration;
             rb.AddForce(force, ForceMode2D.Force);
+            lastMoveDir = moveDir.normalized;
         }
 
         if (rb.linearVelocity.magnitude > maxSpeed) {
