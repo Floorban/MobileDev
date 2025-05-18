@@ -2,6 +2,7 @@
     <engine:ProgressBar value="25.9" title="my-progress" name="ProgressBar">
         <Bindings>
             <engine:DataBinding property="value" data-source-path="health" data-source="project://database/Assets/Scenes/HealthStats.asset?fileID=11400000&amp;guid=568b6107be8bbc34f82661914f430f40&amp;type=2#HealthStats" binding-mode="ToTarget" />
+            <engine:DataBinding property="highValue" data-source-path="maxHealth" data-source="project://database/Assets/Scenes/HealthStats.asset?fileID=11400000&amp;guid=568b6107be8bbc34f82661914f430f40&amp;type=2#HealthStats" binding-mode="ToTarget" />
         </Bindings>
     </engine:ProgressBar>
 </engine:UXML>

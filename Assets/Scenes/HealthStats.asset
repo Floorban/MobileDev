@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dab0724af7156144ba8a282609b8d31, type: 3}
   m_Name: HealthStats
   m_EditorClassIdentifier: 
-  health: 80.5
-  maxHealth: 100
+  health: 102.4
+  maxHealth: 130.3
