@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class Tip : MonoBehaviour, ICollectible
+public class Tip : Pickup, ICollectible
 {
     public int tipAmount;
     public static event Action<int> OnTipCollected;

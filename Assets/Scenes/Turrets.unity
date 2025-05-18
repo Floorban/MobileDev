@@ -1835,6 +1835,10 @@ PrefabInstance:
       propertyPath: inputCanvas
       value: 
       objectReference: {fileID: 1287428225}
+    - target: {fileID: 4997864058659497374, guid: 56487d2364657f1488bbb401404c8f95, type: 3}
+      propertyPath: m_Radius
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7062903412525175544, guid: 56487d2364657f1488bbb401404c8f95, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
