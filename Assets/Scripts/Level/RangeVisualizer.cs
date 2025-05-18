@@ -25,6 +25,7 @@ public class RangeVisualizer : MonoBehaviour
         line.loop = true;
         line.widthMultiplier = 0.05f;
         line.positionCount = segments;
+        line.startColor = line.endColor = outOfRangeColor;
     }
     private void DrawCircle(float radius)
     {
