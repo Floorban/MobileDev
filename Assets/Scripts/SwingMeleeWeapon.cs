@@ -16,22 +16,6 @@ public class SwingMeleeWeapon : AttackBehavior
 
         var controller = weapon.GetComponent<SwingAttack>();
         if (controller != null)
-        {
             controller.Setup(this);
-        }
-    }
-
-    public override void Perform()
-    {
-        foreach (var weapon in spawnedWeapons)
-        {
-            if (!weapon) continue;
-
-            var swing = weapon.GetComponent<SwingAttack>();
-            if (swing != null)
-            {
-                swing.DoSwing();
-            }
-        }
     }
 }

@@ -12,7 +12,7 @@ public class ChefStation : MonoBehaviour
     public float triggerRange = 3f;
     private bool nearby;
     private float cooldownTimer = 0f;
-    public bool CanActivate => attack && nearby && attack.EnemyInRange();
+    public bool CanActivate => attack && nearby;
 
     private bool PlayerInRange
     {
@@ -53,14 +53,14 @@ public class ChefStation : MonoBehaviour
             if (!attack.hasActivated)
             {
                 //cooldownTimer = attack.cooldown;
-                cooldownTimer = 0f;
+                //cooldownTimer = 0f;
                 attack.Activate(player);
                 activeAttack = attack.spawnedWeapons[attack.spawnedWeapons.Count - 1];
             }
         }
         else
         {
-            cooldownTimer = 0f;
+            //cooldownTimer = 0f;
             //attack.Deactivate(player);
 
             if (activeAttack)
@@ -81,13 +81,13 @@ public class ChefStation : MonoBehaviour
             else
             {
                 cooldownTimer = attack.cooldown;
-                attack.Perform();
+                //attack.Perform();
             }
         }
     }
     void Update()
     {
-        UpdateCD();
+        //UpdateCD();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -1,49 +1,55 @@
 using DG.Tweening;
 using UnityEngine;
-public class SwingAttack : MonoBehaviour
+public class SwingAttack : RangeCheck
 {
-    private SwingMeleeWeapon stats;
-    private bool isSwinging = false;
-
+    public SwingMeleeWeapon _stats;
     public void Setup(SwingMeleeWeapon data)
     {
+        _stats = data;
         stats = data;
+        InvokeRepeating(nameof(CheckAndSwing), _stats.cooldown, _stats.cooldown);
     }
-
+    private void CheckAndSwing()
+    {
+        if (EnemyInRange() && !isPerforming)
+        {
+            DoSwing();
+        }
+    }
     public void DoSwing()
     {
-        if (isSwinging) return;
+        if (isPerforming) return;
 
-        isSwinging = true;
+        isPerforming = true;
 
-        float startAngle = -stats.swingAngle / 2;
-        float endAngle = stats.swingAngle / 2;
-        float prepAngle = -stats.windupAngle;
+        float startAngle = -_stats.swingAngle / 2;
+        float endAngle = _stats.swingAngle / 2;
+        float prepAngle = -_stats.windupAngle;
 
         transform.localRotation = Quaternion.Euler(0, 0, 0);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(transform.DOLocalRotate(new Vector3(0, 0, prepAngle), stats.windupDuration))
-            .Append(transform.DOLocalRotate(new Vector3(0, 0, endAngle), stats.swingDuration).SetEase(Ease.OutCubic))
+        seq.Append(transform.DOLocalRotate(new Vector3(0, 0, prepAngle), _stats.windupDuration))
+            .Append(transform.DOLocalRotate(new Vector3(0, 0, endAngle), _stats.swingDuration).SetEase(Ease.OutCubic))
             .AppendCallback(DealDamage)
-            .Append(transform.DOLocalRotate(Vector3.zero, stats.returnDuration))
-            .OnComplete(() => isSwinging = false);
+            .Append(transform.DOLocalRotate(Vector3.zero, _stats.returnDuration))
+            .OnComplete(() => isPerforming = false);
     }
 
     private void DealDamage()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position + stats.centerOffset, stats.detectionRadius, stats.enemyLayer);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position + _stats.centerOffset, _stats.detectionRadius, _stats.enemyLayer);
         foreach (var hit in hits)
         {
             var dmg = hit.GetComponent<IDamageable>();
-            if (dmg != null) dmg.TakeDamage(stats.damage);
+            if (dmg != null) dmg.TakeDamage(_stats.damage);
         }
     }
 
     void OnDrawGizmosSelected()
     {
-        if (stats == null) return;
+        if (_stats == null) return;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + stats.centerOffset, stats.detectionRadius);
+        Gizmos.DrawWireSphere(transform.position + _stats.centerOffset, _stats.detectionRadius);
     }
 }
