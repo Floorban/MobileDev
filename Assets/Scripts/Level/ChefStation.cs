@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(RangeVisualizer))]
@@ -67,14 +66,13 @@ public class ChefStation : MonoBehaviour
             if (activeAttack)
             {
                 player.RemoveWeapon(activeAttack.gameObject);
-                Destroy(activeAttack);
                 activeAttack = null;
             }
         }
     }
     public void UpdateCD()
     {
-        if (CanActivate && attack.hasActivated)
+        if (CanActivate)
         {
             if (cooldownTimer > 0)
             {
@@ -83,7 +81,7 @@ public class ChefStation : MonoBehaviour
             else
             {
                 cooldownTimer = attack.cooldown;
-                attack.Activate(player);
+                attack.Perform();
             }
         }
     }

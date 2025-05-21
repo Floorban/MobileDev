@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-public class AttackBase : MonoBehaviour
+public class AttackBase : ScriptableObject
 {
     public GameObject weaponPrefab;
     public List<GameObject> spawnedWeapons = new();

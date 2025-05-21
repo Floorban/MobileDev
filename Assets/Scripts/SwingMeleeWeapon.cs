@@ -1,7 +1,6 @@
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Attacks/SwingMeleeStats")]
 public class SwingMeleeWeapon : AttackBehavior
 {
     public float swingAngle = 90f;
@@ -12,43 +11,27 @@ public class SwingMeleeWeapon : AttackBehavior
 
     public override void Activate(WeaponManager wm)
     {
-        if (!hasActivated)
+        GameObject weapon = wm.AddWeapon(weaponPrefab);
+        spawnedWeapons.Add(weapon);
+
+        var controller = weapon.GetComponent<SwingAttack>();
+        if (controller != null)
         {
-            //hasActivated = true;
-
-            GameObject weapon = wm.AddWeapon(weaponPrefab);
-            spawnedWeapons.Add(weapon);
-
-            var controller = weapon.GetComponent<SwingAttack>();
-            if (controller != null)
-            {
-                controller.Setup(this);
-            }
-        }
-        else
-        {
-            foreach (var weapon in spawnedWeapons)
-            {
-                if (!weapon) continue;
-
-                var swing = weapon.GetComponent<SwingAttack>();
-                if (swing != null)
-                {
-                    swing.DoSwing();
-                }
-            }
+            controller.Setup(this);
         }
     }
 
-    public override void Deactivate(WeaponManager wm)
+    public override void Perform()
     {
         foreach (var weapon in spawnedWeapons)
         {
-            if (weapon != null)
-                wm.RemoveWeapon(weapon);
-        }
+            if (!weapon) continue;
 
-        spawnedWeapons.Clear();
-        hasActivated = false;
+            var swing = weapon.GetComponent<SwingAttack>();
+            if (swing != null)
+            {
+                swing.DoSwing();
+            }
+        }
     }
 }

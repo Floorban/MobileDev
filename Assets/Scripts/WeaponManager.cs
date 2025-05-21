@@ -19,7 +19,6 @@ public class WeaponManager : MonoBehaviour
             weapons[i].transform.position = transform.position + offset;
         }
     }
-
     public GameObject AddWeapon(GameObject weaponPrefab)
     {
         GameObject w = Instantiate(weaponPrefab, transform.position, Quaternion.identity);
