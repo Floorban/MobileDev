@@ -1,18 +1,18 @@
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(RangeVisualizer))]
 public class ChefStation : MonoBehaviour
 {
     private CircleCollider2D col;
-    public ProjectileBehaviour projectile;
-    private Player player;
+    public AttackBehavior attack;
+    private WeaponManager player;
     private RangeVisualizer rangeVisual;
     public float triggerRange = 3f;
     private bool nearby;
     private float cooldownTimer = 0f;
-    public bool CanActivate => projectile && nearby && cooldownTimer <= 0f;
+    public bool CanActivate => attack && nearby && attack.EnemyInRange();
 
     private bool PlayerInRange
     {
@@ -28,25 +28,17 @@ public class ChefStation : MonoBehaviour
     private void Awake()
     {
         InitComponents();
-        UpdateRange(triggerRange);
+        SetRange(triggerRange);
     }
 
     private void InitComponents()
     {
         col = GetComponent<CircleCollider2D>();
         col.isTrigger = true;
-        player = FindFirstObjectByType<Player>();
+        player = FindFirstObjectByType<WeaponManager>();
         rangeVisual = GetComponent<RangeVisualizer>();
     }
-    public void TryActivate(Player p)
-    {
-        if (CanActivate)
-        {
-            projectile.Activate(p.transform);
-            cooldownTimer = projectile.cooldown;
-        }
-    }
-    public void UpdateRange(float newRange)
+    public void SetRange(float newRange)
     {
         triggerRange = newRange;
         col.radius = newRange;
@@ -54,30 +46,52 @@ public class ChefStation : MonoBehaviour
     }
     public void HandleBehaviour(bool active)
     {
+        if (!attack) return;
+
         if (active)
         {
-            //do cooldown ui
+            if (!attack.hasActivated)
+            {
+                attack.Activate(player);
+                //cooldownTimer = attack.cooldown;
+                cooldownTimer = 0f;
+            }
         }
         else
         {
-            projectile.Deactivate();
+            attack.Deactivate(player);
+            cooldownTimer = 0f;
+        }
+    }
+    public void UpdateCD()
+    {
+        if (CanActivate && attack.hasActivated)
+        {
+            if (cooldownTimer > 0)
+            {
+                cooldownTimer -= Time.deltaTime;
+            }
+            else
+            {
+                cooldownTimer = attack.cooldown;
+                attack.Activate(player);
+            }
         }
     }
     void Update()
     {
-        if (cooldownTimer > 0) cooldownTimer -= Time.deltaTime;
-        else cooldownTimer = 0;
-
-        TryActivate(player);
+        UpdateCD();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject == player.gameObject)
             PlayerInRange = true;
+        onEnter?.Invoke();
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject == player.gameObject)
             PlayerInRange = false;
+        onExit?.Invoke();
     }
 }
