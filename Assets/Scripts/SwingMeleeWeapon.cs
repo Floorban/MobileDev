@@ -1,3 +1,5 @@
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SwingMeleeWeapon : AttackBehavior
@@ -12,29 +14,41 @@ public class SwingMeleeWeapon : AttackBehavior
     {
         if (!hasActivated)
         {
-            hasActivated = true;
+            //hasActivated = true;
 
-            spawnedWeapon = wm.AddWeapon(weaponPrefab);
-            var controller = spawnedWeapon.GetComponent<SwingAttack>();
+            GameObject weapon = wm.AddWeapon(weaponPrefab);
+            spawnedWeapons.Add(weapon);
+
+            var controller = weapon.GetComponent<SwingAttack>();
             if (controller != null)
-                controller.Setup(this);
-        }
-        else if (spawnedWeapon != null)
-        {
-            var swing = spawnedWeapon.GetComponent<SwingAttack>();
-            if (swing != null)
             {
-                swing.DoSwing();
+                controller.Setup(this);
+            }
+        }
+        else
+        {
+            foreach (var weapon in spawnedWeapons)
+            {
+                if (!weapon) continue;
+
+                var swing = weapon.GetComponent<SwingAttack>();
+                if (swing != null)
+                {
+                    swing.DoSwing();
+                }
             }
         }
     }
 
     public override void Deactivate(WeaponManager wm)
     {
-        if (!spawnedWeapon) return;
+        foreach (var weapon in spawnedWeapons)
+        {
+            if (weapon != null)
+                wm.RemoveWeapon(weapon);
+        }
 
-        wm.RemoveWeapon(spawnedWeapon);
-        spawnedWeapon = null;
+        spawnedWeapons.Clear();
         hasActivated = false;
     }
 }

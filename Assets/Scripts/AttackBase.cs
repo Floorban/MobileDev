@@ -1,9 +1,9 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 public class AttackBase : MonoBehaviour
 {
     public GameObject weaponPrefab;
-    [HideInInspector] public GameObject spawnedWeapon;
+    public List<GameObject> spawnedWeapons = new();
     public int damage = 10;
     public float detectionRadius = 2f;
     public LayerMask enemyLayer;
@@ -15,10 +15,16 @@ public class AttackBase : MonoBehaviour
 
     public bool EnemyInRange()
     {
-        if (spawnedWeapon == null) return false;
+        if (spawnedWeapons == null || spawnedWeapons.Count == 0) return false;
 
-        Collider2D[] hits = Physics2D.OverlapCircleAll(
-            spawnedWeapon.transform.position + centerOffset, detectionRadius, enemyLayer);
-        return hits.Length > 0;
+        foreach (var weapon in spawnedWeapons)
+        {
+            if (!weapon) continue;
+            Collider2D[] hits = Physics2D.OverlapCircleAll(
+                weapon.transform.position + centerOffset, detectionRadius, enemyLayer);
+            if (hits.Length > 0) return true;
+        }
+
+        return false;
     }
 }

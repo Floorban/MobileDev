@@ -7,6 +7,7 @@ public class ChefStation : MonoBehaviour
 {
     private CircleCollider2D col;
     public AttackBehavior attack;
+    public GameObject activeAttack;
     private WeaponManager player;
     private RangeVisualizer rangeVisual;
     public float triggerRange = 3f;
@@ -52,15 +53,23 @@ public class ChefStation : MonoBehaviour
         {
             if (!attack.hasActivated)
             {
-                attack.Activate(player);
                 //cooldownTimer = attack.cooldown;
                 cooldownTimer = 0f;
+                attack.Activate(player);
+                activeAttack = attack.spawnedWeapons[attack.spawnedWeapons.Count - 1];
             }
         }
         else
         {
-            attack.Deactivate(player);
             cooldownTimer = 0f;
+            //attack.Deactivate(player);
+
+            if (activeAttack)
+            {
+                player.RemoveWeapon(activeAttack.gameObject);
+                Destroy(activeAttack);
+                activeAttack = null;
+            }
         }
     }
     public void UpdateCD()
@@ -86,12 +95,10 @@ public class ChefStation : MonoBehaviour
     {
         if (collision.gameObject == player.gameObject)
             PlayerInRange = true;
-        onEnter?.Invoke();
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject == player.gameObject)
             PlayerInRange = false;
-        onExit?.Invoke();
     }
 }
