@@ -10,18 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16805dbe5d7f9f545bc12aa2412af816, type: 3}
-  m_Name: New Ranged Weapon
+  m_Name: Boba_WeaponStats
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 8720808384128848908, guid: 4a3d6d3e9236af7479f1a0e552a0866d, type: 3}
   spawnedWeapons: []
   damage: 10
-  detectionRadius: 2
+  detectionRadius: 10
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
   hasActivated: 0
   speed: 10
   lifeTime: 1
-  cooldown: 1
-  centerOffset: {x: 0, y: 0, z: 0}
-  projectilePrefab: {fileID: 0}
+  cooldown: 0.5
+  centerOffset: {x: 0, y: 0.3, z: 0}
+  projectilePrefab: {fileID: 8960536926405029604, guid: 3621b23179a1afb4192551b2c8c4719d, type: 3}
+  recoilAngle: -20
+  recoilDuration: 0.1
+  returnDuration: 0.15

@@ -10,7 +10,7 @@ public class SwingAttack : AttackBehavior
     }
     public override void Perform()
     {
-        if (EnemyInRange() && !isPerforming && canPerform)
+        if (!isPerforming && canPerform && EnemyInRange())
         {
             DoSwing();
         }

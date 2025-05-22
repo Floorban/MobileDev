@@ -9,16 +9,10 @@ public class WeaponManager : MonoBehaviour
 
     void Update()
     {
-        for (int i = 0; i < weapons.Count; i++)
-        {
-            if (!weapons[i]) continue;
-
-            float angle = (360f / weapons.Count) * i + Time.time * speed;
-            float rad = angle * Mathf.Deg2Rad;
-            Vector3 offset = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0f) * radius;
-            weapons[i].transform.position = transform.position + offset;
-        }
+        Orbit();
     }
+
+
     public GameObject AddWeapon(GameObject weaponPrefab)
     {
         GameObject w = Instantiate(weaponPrefab, transform.position, Quaternion.identity);
@@ -30,5 +24,18 @@ public class WeaponManager : MonoBehaviour
     {
         Destroy(target);
         weapons.Remove(target);
+    }
+
+    private void Orbit()
+    {
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            if (!weapons[i]) continue;
+
+            float angle = (360f / weapons.Count) * i + Time.time * speed;
+            float rad = angle * Mathf.Deg2Rad;
+            Vector3 offset = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0f) * radius;
+            weapons[i].transform.position = transform.position + offset;
+        }
     }
 }

@@ -5,13 +5,18 @@ public abstract class AttackBehavior : MonoBehaviour
     public AttackStats stats;
     public bool isPerforming = false;
     public bool canPerform = false;
-    private void Update()
+    public virtual void Update()
     {
         Perform();
     }
-    public bool EnemyInRange()
+    public virtual bool EnemyInRange()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(gameObject.transform.position + stats.centerOffset, stats.detectionRadius, stats.enemyLayer);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(
+        transform.position + stats.centerOffset,
+        stats.detectionRadius,
+        stats.enemyLayer
+        );
+
         if (hits.Length > 0)
             return true;
 
