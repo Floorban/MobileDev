@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class AttackBehavior : MonoBehaviour
 {
     public AttackStats stats;
-    protected bool isPerforming = false;
+    public bool isPerforming = false;
     public bool canPerform = false;
     private void Update()
     {

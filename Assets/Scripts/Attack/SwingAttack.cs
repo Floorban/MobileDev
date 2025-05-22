@@ -12,15 +12,15 @@ public class SwingAttack : AttackBehavior
     {
         if (EnemyInRange() && !isPerforming && canPerform)
         {
-            canPerform = false;
             DoSwing();
         }
     }
     public void DoSwing()
     {
-        if (isPerforming) return;
+        if (isPerforming || !canPerform) return;
 
         isPerforming = true;
+        canPerform = false;
 
         float startAngle = -_stats.swingAngle / 2;
         float endAngle = _stats.swingAngle / 2;
@@ -33,7 +33,10 @@ public class SwingAttack : AttackBehavior
             .Append(transform.DOLocalRotate(new Vector3(0, 0, endAngle), _stats.swingDuration).SetEase(Ease.OutCubic))
             .AppendCallback(DealDamage)
             .Append(transform.DOLocalRotate(Vector3.zero, _stats.returnDuration))
-            .OnComplete(() => isPerforming = false);
+            .OnComplete(() => {
+                isPerforming = false;
+                seq.Kill();
+            });
     }
 
     private void DealDamage()

@@ -87,9 +87,9 @@ public class ChefStation : MonoBehaviour
             {
                 foreach (var weapon in attack.spawnedWeapons)
                 {
-                    AttackBehavior bahavior = weapon.GetComponent<AttackBehavior>();
-                    if (bahavior)
-                        bahavior.canPerform = true;
+                    AttackBehavior behavior = weapon.GetComponent<AttackBehavior>();
+                    if (behavior && !behavior.isPerforming)
+                        behavior.canPerform = true;
                 }
                 cooldownTimer = attack.cooldown;
             }
