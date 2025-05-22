@@ -9,10 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1261bd50d1b01724ab0f5eeb3fd567c9, type: 3}
-  m_Name: New Straight Shot
+  m_Script: {fileID: 11500000, guid: 16805dbe5d7f9f545bc12aa2412af816, type: 3}
+  m_Name: New Ranged Weapon
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 8960536926405029604, guid: 3621b23179a1afb4192551b2c8c4719d, type: 3}
+  weaponPrefab: {fileID: 0}
+  spawnedWeapons: []
+  damage: 10
+  detectionRadius: 2
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  hasActivated: 0
   speed: 10
   lifeTime: 1
   cooldown: 1
+  centerOffset: {x: 0, y: 0, z: 0}
+  projectilePrefab: {fileID: 0}
