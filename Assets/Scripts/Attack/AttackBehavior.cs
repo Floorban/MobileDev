@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class RangeCheck : MonoBehaviour
+public class AttackBehavior : MonoBehaviour
 {
-    public AttackBase stats;
+    public AttackStats stats;
     protected bool isPerforming = false;
 
     public bool EnemyInRange()

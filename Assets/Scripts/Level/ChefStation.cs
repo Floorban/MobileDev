@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChefStation : MonoBehaviour
 {
     private CircleCollider2D col;
-    public AttackBehavior attack;
+    public AttackStats attack;
     public GameObject activeAttack;
     private WeaponManager player;
     private RangeVisualizer rangeVisual;

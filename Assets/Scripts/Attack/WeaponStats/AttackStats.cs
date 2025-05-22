@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-public class AttackBase : ScriptableObject
+public abstract class AttackStats : ScriptableObject
 {
     public GameObject weaponPrefab;
     public List<GameObject> spawnedWeapons = new();
@@ -12,4 +12,6 @@ public class AttackBase : ScriptableObject
     public float lifeTime = 1f;
     public float cooldown = 1f;
     public Vector3 centerOffset;
+    public abstract void Activate(WeaponManager p);
+
 }
