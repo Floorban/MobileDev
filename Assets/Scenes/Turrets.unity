@@ -688,7 +688,7 @@ Transform:
   m_GameObject: {fileID: 505760862}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.75, y: -2.55, z: 0}
+  m_LocalPosition: {x: 2.2, y: 0.19, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2092,7 +2092,7 @@ Transform:
   m_GameObject: {fileID: 1724114538}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.32, y: -2.92, z: 0}
+  m_LocalPosition: {x: 1.31, y: 2.61, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2247,6 +2247,10 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7057399543882635114, guid: 56487d2364657f1488bbb401404c8f95, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7062903412525175544, guid: 56487d2364657f1488bbb401404c8f95, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2316,8 +2320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ad310177e531848b87fe2dc95e6acf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 1
-  speed: 30
+  radius: 1.5
+  speed: 70
   weapons: []
 --- !u!1001 &8088943635604623991
 PrefabInstance:

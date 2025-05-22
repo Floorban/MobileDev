@@ -9,9 +9,9 @@ public class SwingMeleeWeapon : AttackStats
     public float windupDuration = 0.3f;
     public float returnDuration = 0.15f;
 
-    public override void Activate(WeaponManager wm)
+    public override void Activate(WeaponManager p)
     {
-        GameObject weapon = wm.AddWeapon(weaponPrefab);
+        GameObject weapon = p.AddWeapon(weaponPrefab);
         spawnedWeapons.Add(weapon);
 
         var controller = weapon.GetComponent<SwingAttack>();

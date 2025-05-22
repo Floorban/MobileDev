@@ -9,9 +9,8 @@ public class RangedAttack : AttackBehavior
     {
         _stats = data;
         stats = data;
-        InvokeRepeating(nameof(CheckAndSwing), _stats.cooldown, _stats.cooldown);
     }
-    private void CheckAndSwing()
+    public override void Perform()
     {
         if (EnemyInRange() && !isPerforming)
         {

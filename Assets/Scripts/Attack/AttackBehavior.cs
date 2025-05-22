@@ -1,10 +1,14 @@
 using UnityEngine;
 
-public class AttackBehavior : MonoBehaviour
+public abstract class AttackBehavior : MonoBehaviour
 {
     public AttackStats stats;
     protected bool isPerforming = false;
-
+    public bool canPerform = false;
+    private void Update()
+    {
+        Perform();
+    }
     public bool EnemyInRange()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(gameObject.transform.position + stats.centerOffset, stats.detectionRadius, stats.enemyLayer);
@@ -13,4 +17,7 @@ public class AttackBehavior : MonoBehaviour
 
         return false;
     }
+
+    public abstract void Perform();
+
 }

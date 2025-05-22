@@ -7,12 +7,12 @@ public class SwingAttack : AttackBehavior
     {
         _stats = data;
         stats = data;
-        InvokeRepeating(nameof(CheckAndSwing), _stats.cooldown, _stats.cooldown);
     }
-    private void CheckAndSwing()
+    public override void Perform()
     {
-        if (EnemyInRange() && !isPerforming)
+        if (EnemyInRange() && !isPerforming && canPerform)
         {
+            canPerform = false;
             DoSwing();
         }
     }
@@ -52,4 +52,6 @@ public class SwingAttack : AttackBehavior
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + _stats.centerOffset, _stats.detectionRadius);
     }
+
+
 }

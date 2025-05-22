@@ -29,6 +29,11 @@ public class ChefStation : MonoBehaviour
     {
         InitComponents();
         SetRange(triggerRange);
+
+        if (attack)
+        {
+            attack.spawnedWeapons.Clear();
+        }
     }
 
     private void InitComponents()
@@ -52,8 +57,7 @@ public class ChefStation : MonoBehaviour
         {
             if (!attack.hasActivated)
             {
-                //cooldownTimer = attack.cooldown;
-                //cooldownTimer = 0f;
+                cooldownTimer = attack.cooldown;
                 attack.Activate(player);
                 activeAttack = attack.spawnedWeapons[attack.spawnedWeapons.Count - 1];
             }
@@ -65,7 +69,8 @@ public class ChefStation : MonoBehaviour
 
             if (activeAttack)
             {
-                player.RemoveWeapon(activeAttack.gameObject);
+                player.RemoveWeapon(activeAttack);
+                attack.spawnedWeapons.Remove(activeAttack);
                 activeAttack = null;
             }
         }
@@ -80,14 +85,19 @@ public class ChefStation : MonoBehaviour
             }
             else
             {
+                foreach (var weapon in attack.spawnedWeapons)
+                {
+                    AttackBehavior bahavior = weapon.GetComponent<AttackBehavior>();
+                    if (bahavior)
+                        bahavior.canPerform = true;
+                }
                 cooldownTimer = attack.cooldown;
-                //attack.Perform();
             }
         }
     }
     void Update()
     {
-        //UpdateCD();
+        UpdateCD();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

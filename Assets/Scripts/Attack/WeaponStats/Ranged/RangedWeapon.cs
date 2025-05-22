@@ -6,7 +6,12 @@ public class RangedWeapon : AttackStats
     public GameObject projectilePrefab;
     public override void Activate(WeaponManager p)
     {
-        throw new System.NotImplementedException();
+        GameObject weapon = p.AddWeapon(weaponPrefab);
+        spawnedWeapons.Add(weapon);
+
+        var controller = weapon.GetComponent<RangedAttack>();
+        if (controller != null)
+            controller.Setup(this);
     }
 
     public void Fire(Transform target, Vector2 dir)
