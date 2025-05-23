@@ -8,14 +8,14 @@ public class WaveManager : MonoBehaviour
     [SerializeField] Vector3 spawnBounds = new Vector3(7, 7, 0);
 
     [Header("Wave Data")]
-    public WaveStats waveData;
-    public int curWave;
+    public WaveStats[] wavestats = new WaveStats[10];
+    public int curWave = 1;
     private int curWaveValue;
     public List<GameObject> enemiesToSpawn = new List<GameObject>();
     public List<GameObject> spawnedEnemies = new List<GameObject>();
 
     [Header("Wave Timer")]
-    //public int waveDuration;
+    public bool waveStart;
     [SerializeField] private float waveTimer;
     [SerializeField] private float spawnInterval;
     private float spawnTimer;
@@ -36,6 +36,8 @@ public class WaveManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!waveStart) return;
+
         if (spawnTimer <= 0)
         {
             if (enemiesToSpawn.Count > 0)
@@ -51,6 +53,7 @@ public class WaveManager : MonoBehaviour
 
         if (waveTimer <= 0)
         {
+            waveStart = false;
             curWave++;
             //GenerateWave();
             // wave ends, go to prepare phase
@@ -68,23 +71,25 @@ public class WaveManager : MonoBehaviour
     }
     public void GenerateWave()
     {
-        curWaveValue = waveData.waveValue;
+        if (!waveStart || curWave > wavestats.Length) return;
+
+        curWaveValue = wavestats[curWave - 1].waveValue;
         GenerateEnemiesToSpawn();
-        spawnInterval =  waveData.waveDuration / enemiesToSpawn.Count;
-        waveTimer = waveData.waveDuration; 
+        spawnInterval =  wavestats[curWave - 1].waveDuration / enemiesToSpawn.Count;
+        waveTimer = wavestats[curWave - 1].waveDuration; 
     }
 
     public void GenerateEnemiesToSpawn()
     {
         List<GameObject> generatedEnemies = new List<GameObject>();
-        while (curWaveValue > 0 || generatedEnemies.Count < waveData.maxNumOfEnemies)
+        while (curWaveValue > 0 || generatedEnemies.Count < wavestats[curWave - 1].maxNumOfEnemies)
         {
-            int randEnemyId = Random.Range(0, waveData.enemyPoll.Count);
-            int randEnemyCost = waveData.enemyPoll[randEnemyId].cost;
+            int randEnemyId = Random.Range(0, wavestats[curWave - 1].enemyPoll.Count);
+            int randEnemyCost = wavestats[curWave - 1].enemyPoll[randEnemyId].cost;
 
             if (curWaveValue - randEnemyCost >= 0)
             {
-                generatedEnemies.Add(waveData.enemyPoll[randEnemyId].enemyPrefab);
+                generatedEnemies.Add(wavestats[curWave - 1].enemyPoll[randEnemyId].enemyPrefab);
                 curWaveValue -= randEnemyCost;
             }
             else if (curWaveValue <= 0)

@@ -11,11 +11,14 @@ public class OffScreenIndicator : MonoBehaviour
     private float spriteWidth;
     private float spriteHeight;
 
+    private Transform player;
+
     // <target, indicator>
     private Dictionary<GameObject, GameObject> targetIndicators = new Dictionary<GameObject, GameObject>();
 
     private void Awake()
     {
+        player = FindFirstObjectByType<Player>().gameObject.transform;
         cam = Camera.main;
         spriteRend = indicatorPrefab.GetComponent<SpriteRenderer>();
 
@@ -49,9 +52,9 @@ public class OffScreenIndicator : MonoBehaviour
             indicator.transform.position = worldPos;
 
             // set rotation
-            Vector3 dir = target.transform.position - indicator.transform.position;
+            Vector3 dir = target.transform.position - player.position;
             float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
-            indicator.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            indicator.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 110f));
         }
         else
         {
