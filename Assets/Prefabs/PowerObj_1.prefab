@@ -84,7 +84,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04d323ac1758891468c89dc471bfceb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 0}
+  attack: {fileID: 11400000, guid: d540a3cfcad488542a8402d8077ac55b, type: 2}
+  activeAttack: {fileID: 0}
   triggerRange: 3
 --- !u!114 &276978572683491920
 MonoBehaviour:
@@ -218,8 +219,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7508480651140044946}
   - component: {fileID: 8022207340686560122}
+  - component: {fileID: 7831243756849660515}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,7 +286,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 8911745778642235845, guid: 64cd729656dbf4a4eb6515cdcfc0fdfb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -295,3 +297,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7831243756849660515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3985920579671372267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328fd3babf12ec84083b3d5c929c421b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  squashAmount: 0.8
+  stretchAmount: 1.1
+  squashDuration: 0.2
+  holdDuration: 0.05
+  returnDuration: 0.2
