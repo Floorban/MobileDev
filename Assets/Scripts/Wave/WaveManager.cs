@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class WaveManager : MonoBehaviour
 
     [Header("UI")]
     private OffScreenIndicator offScreenIndicator;
+    [SerializeField] private TextMeshProUGUI timerText;
 
     [SerializeField] private bool waveStart;
     public bool WaveStart
@@ -61,7 +63,12 @@ public class WaveManager : MonoBehaviour
             waveStart = false;
             curWave++;
             waveTimer = 1;
+            timerText.text = 0.ToString();
             // wave ends, go to prepare phase
+        }
+        else
+        {
+            timerText.text = ((int)waveTimer).ToString();
         }
     }
     private void SpawnEnemy()
