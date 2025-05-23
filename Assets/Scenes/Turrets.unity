@@ -173,7 +173,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 0}
+  m_BackGroundColor: {r: 0.8867924, g: 0.80731577, b: 0.80731577, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -197,8 +197,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
-  orthographic size: 10
+  orthographic: 0
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -223,7 +223,7 @@ Transform:
   m_GameObject: {fileID: 138640990}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.25, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -430,6 +430,37 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!1 &175575934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 175575935}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &175575935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175575934}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.525602, y: 1.0620527, z: -0.06663962}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &297655999
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,6 +892,7 @@ GameObject:
   m_Component:
   - component: {fileID: 527171483}
   - component: {fileID: 527171482}
+  - component: {fileID: 527171484}
   m_Layer: 0
   m_Name: WaveManager
   m_TagString: Untagged
@@ -882,7 +914,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnArea: {x: 3, y: 2, z: 0}
   spawnBounds: {x: 6, y: 6, z: 0}
-  enemyPrefabs: {fileID: 8675692042958374970, guid: 225eac061d13e694f8cc1faa90f91fe2, type: 3}
+  waveData: {fileID: 11400000, guid: 565fd674d81c78c43857b6183c696769, type: 2}
+  curWave: 1
+  enemiesToSpawn: []
+  spawnedEnemies: []
+  waveTimer: 0
+  spawnInterval: 0
 --- !u!4 &527171483
 Transform:
   m_ObjectHideFlags: 0
@@ -898,6 +935,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &527171484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527171481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb7d52f28635d1448ef957a3b84dfe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets: []
+  indicatorPrefab: {fileID: 7553992490787701712, guid: 56c64d8579e14ee4286be108cbbb0468, type: 3}
 --- !u!1 &685314225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1303,7 +1354,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -22
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 1}
+  m_Color: {r: 0.6684365, g: 0.8018868, b: 0.6468049, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1750,7 +1801,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 10
+    OrthographicSize: 8
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -2447,3 +2498,4 @@ SceneRoots:
   - {fileID: 513685208}
   - {fileID: 1113865178}
   - {fileID: 527171483}
+  - {fileID: 175575935}

@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -17,6 +19,8 @@ public class Player : MonoBehaviour
     public float maxSpeed;
     public float acceleration = 10f;
     public float drag = 0.5f;
+
+    private CinemachinePositionComposer cam;
     private void Awake() {
         InitComponents();
         EnableJoystick();
@@ -30,6 +34,7 @@ public class Player : MonoBehaviour
     private void InitComponents() {
         rb = GetComponent<Rigidbody2D>();
         rb.linearDamping = drag;
+        cam = FindFirstObjectByType<CinemachinePositionComposer>();
     }
     private void EnableJoystick() {
         isJoystick = true;
@@ -41,22 +46,22 @@ public class Player : MonoBehaviour
         }
     }
     private void Move() {
-        //rb.linearVelocity = moveDir * moveSpeed;
+        rb.linearVelocity = moveDir * moveSpeed;
+        if (rb.linearVelocity.magnitude > 0)
+            cam.CameraDistance = 15;
+        else
+            cam.CameraDistance = 10;
 
-        /*        Vector2 targetVelocity = moveDir * moveSpeed;
-                Vector2 velocityChange = targetVelocity - rb.linearVelocity;
-                velocityChange = Vector2.ClampMagnitude(velocityChange, acceleration * Time.fixedDeltaTime);
-                rb.AddForce(velocityChange, ForceMode2D.Impulse);*/
+        // slippery movement
+        /*        if (moveDir.sqrMagnitude > 0.01f) {
+                    Vector2 force = moveDir * acceleration;
+                    rb.AddForce(force, ForceMode2D.Force);
+                    lastMoveDir = moveDir.normalized;
+                }
 
-        if (moveDir.sqrMagnitude > 0.01f) {
-            Vector2 force = moveDir * acceleration;
-            rb.AddForce(force, ForceMode2D.Force);
-            lastMoveDir = moveDir.normalized;
-        }
-
-        if (rb.linearVelocity.magnitude > maxSpeed) {
-            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
-        }
+                if (rb.linearVelocity.magnitude > maxSpeed) {
+                    rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+                }*/
     }
     public void ApplyRecoil(Vector2 dir, float force, float stunTime = 0.2f)
     {
