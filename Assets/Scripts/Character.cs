@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    [Header("Squash Settings")]
+    public bool active;
+
+    [Header("Anim Settings")]
     public float squashAmount = 0.8f;
     public float stretchAmount = 1.1f;
     public float squashDuration = 0.2f;
@@ -12,15 +14,23 @@ public class Character : MonoBehaviour
 
     private Vector3 originalScale;
     private Sequence squashLoop;
+    public bool Active
+    {
+        get => active;
+        set
+        {
+            if (active == value) return;
+            active = value;
 
+            if (value)
+                StartSquashLoop();
+            else
+                StopSquashLoop();
+        }
+    }
     private void Awake()
     {
         originalScale = transform.localScale;
-    }
-
-    private void Start()
-    {
-        StartSquashLoop();
     }
 
     private void StartSquashLoop()
@@ -35,7 +45,6 @@ public class Character : MonoBehaviour
             .Append(transform.DOScale(originalScale, squashDuration).SetEase(Ease.InOutQuad))
             .AppendInterval(holdDuration)
             .SetLoops(-1);
-            //.SetUpdate(true);
     }
     public void StopSquashLoop()
     {

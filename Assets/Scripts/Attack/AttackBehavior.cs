@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class AttackBehavior : MonoBehaviour
 {
-    public AttackStats stats;
+    public WeaponStats stats;
     public bool isPerforming = false;
     public bool canPerform = false;
     public virtual void Update()

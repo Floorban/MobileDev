@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Attacks/SwingMeleeStats")]
-public class SwingMeleeWeapon : AttackStats
+public class SwingMeleeWeapon : WeaponStats
 {
     public float swingAngle = 90f;
     public float swingDuration = 0.3f;

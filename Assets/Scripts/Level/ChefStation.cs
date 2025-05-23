@@ -4,8 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(RangeVisualizer))]
 public class ChefStation : MonoBehaviour
 {
+    [SerializeField] Character sprite;
     private CircleCollider2D col;
-    public AttackStats attack;
+    public WeaponStats attack;
     public GameObject activeAttack;
     private WeaponManager player;
     private RangeVisualizer rangeVisual;
@@ -22,6 +23,7 @@ public class ChefStation : MonoBehaviour
             nearby = value;
             rangeVisual.UpdateRange(value);
             HandleBehaviour(value);
+            sprite.Active = value;
         }
     }
 

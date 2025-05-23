@@ -16,7 +16,8 @@ public class RangedAttack : AttackBehavior
     public override void Update()
     {
         base.Update();
-        AimAtEnemy();
+        if (!isPerforming)
+           AimAtEnemy();
     }
     public override void Perform()
     {

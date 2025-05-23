@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-public abstract class AttackStats : ScriptableObject
+public abstract class WeaponStats : ScriptableObject
 {
     public GameObject weaponPrefab;
     public List<GameObject> spawnedWeapons = new();

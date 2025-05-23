@@ -84,6 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04d323ac1758891468c89dc471bfceb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 7831243756849660515}
   attack: {fileID: 11400000, guid: d540a3cfcad488542a8402d8077ac55b, type: 2}
   activeAttack: {fileID: 0}
   triggerRange: 3
@@ -309,6 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328fd3babf12ec84083b3d5c929c421b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  active: 0
   squashAmount: 0.8
   stretchAmount: 1.1
   squashDuration: 0.2

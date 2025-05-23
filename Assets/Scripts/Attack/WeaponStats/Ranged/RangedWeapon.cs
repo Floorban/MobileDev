@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Attacks/SwingMeleeStats")]
-public class RangedWeapon : AttackStats
+public class RangedWeapon : WeaponStats
 {
     public GameObject projectilePrefab;
 
