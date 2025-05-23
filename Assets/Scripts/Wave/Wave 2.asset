@@ -17,6 +17,6 @@ MonoBehaviour:
     cost: 1
   - enemyPrefab: {fileID: 8675692042958374970, guid: 0d20cc6dd03208749aff01b75547172a, type: 3}
     cost: 2
-  waveDuration: 20
+  waveDuration: 10
   waveValue: 10
   maxNumOfEnemies: 5

@@ -15,7 +15,6 @@ public class WaveManager : MonoBehaviour
     public List<GameObject> spawnedEnemies = new List<GameObject>();
 
     [Header("Wave Timer")]
-    public bool waveStart;
     [SerializeField] private float waveTimer;
     [SerializeField] private float spawnInterval;
     private float spawnTimer;
@@ -23,15 +22,21 @@ public class WaveManager : MonoBehaviour
     [Header("UI")]
     private OffScreenIndicator offScreenIndicator;
 
+    [SerializeField] private bool waveStart;
+    public bool WaveStart
+    {
+        get => waveStart;
+        set
+        {
+            waveStart = value;
+            if (value)
+                GenerateWave();
+        }
+    }
     private void Awake()
     {
         player = FindFirstObjectByType<Player>().transform;
         offScreenIndicator = GetComponent<OffScreenIndicator>();
-    }
-
-    private void Start()
-    {
-        GenerateWave();
     }
 
     private void FixedUpdate()
@@ -55,7 +60,7 @@ public class WaveManager : MonoBehaviour
         {
             waveStart = false;
             curWave++;
-            //GenerateWave();
+            waveTimer = 1;
             // wave ends, go to prepare phase
         }
     }
