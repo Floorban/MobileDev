@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e19e160e66c24046ad5e41caa51ca12, type: 3}
-  m_Name: Wave 5
+  m_Script: {fileID: 11500000, guid: fa96714832b1b9448872857d19c8423e, type: 3}
+  m_Name: EnemyStats 2
   m_EditorClassIdentifier: 
-  enemyPoll:
-  - enemyPrefab: {fileID: 8675692042958374970, guid: 225eac061d13e694f8cc1faa90f91fe2, type: 3}
-    cost: 1
-  waveDuration: 40
-  waveValue: 35
-  maxNumOfEnemies: 15
+  moveSpeed: 5
+  invincibleTime: 0.5
+  damage: 1
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 8

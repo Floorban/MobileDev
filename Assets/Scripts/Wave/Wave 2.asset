@@ -15,8 +15,8 @@ MonoBehaviour:
   enemyPoll:
   - enemyPrefab: {fileID: 8675692042958374970, guid: 225eac061d13e694f8cc1faa90f91fe2, type: 3}
     cost: 1
-  - enemyPrefab: {fileID: 8675692042958374970, guid: 0d20cc6dd03208749aff01b75547172a, type: 3}
+  - enemyPrefab: {fileID: 8675692042958374970, guid: 817b52b991d824f4790251c7c2e8be88, type: 3}
     cost: 2
-  waveDuration: 10
-  waveValue: 10
-  maxNumOfEnemies: 5
+  waveDuration: 25
+  waveValue: 20
+  maxNumOfEnemies: 10

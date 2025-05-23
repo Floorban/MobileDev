@@ -16,6 +16,11 @@ public class OffScreenIndicator : MonoBehaviour
     // <target, indicator>
     private Dictionary<GameObject, GameObject> targetIndicators = new Dictionary<GameObject, GameObject>();
 
+    private void OnEnable()
+    {
+        Enemy.OnEnemyDeath += RemoveTarget;
+    }
+
     private void Awake()
     {
         player = FindFirstObjectByType<Player>().gameObject.transform;
@@ -61,11 +66,21 @@ public class OffScreenIndicator : MonoBehaviour
             indicator.SetActive(false);
         }
     }
-    public void InitIndicators(GameObject target)
+    public void InitIndicator(GameObject target)
     {
         targets.Add(target);
         GameObject indicator = Instantiate(indicatorPrefab);
         indicator.SetActive(false);
         targetIndicators.Add(target, indicator);
+    }
+    public void RemoveTarget(GameObject target)
+    {
+        targets.Remove(target);
+
+        if (targetIndicators.TryGetValue(target, out GameObject indicator))
+        {
+            Destroy(indicator);
+            targetIndicators.Remove(target);
+        }
     }
 }

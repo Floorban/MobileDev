@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponPrefab: {fileID: 8720808384128848908, guid: 4a3d6d3e9236af7479f1a0e552a0866d, type: 3}
   spawnedWeapons: []
   damage: 10
-  detectionRadius: 10
+  detectionRadius: 4
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8

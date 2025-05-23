@@ -78,7 +78,7 @@ public class WaveManager : MonoBehaviour
         enemy.transform.SetParent(transform);
         enemiesToSpawn.RemoveAt(0);
         spawnedEnemies.Add(enemy);
-        offScreenIndicator.InitIndicators(enemy);
+        offScreenIndicator.InitIndicator(enemy);
         spawnTimer = spawnInterval;
     }
     public void GenerateWave()
@@ -152,11 +152,4 @@ public class WaveManager : MonoBehaviour
         Vector3 boundsSize = new Vector3(spawnBounds.x * 2, spawnBounds.y * 2, 0f);
         Gizmos.DrawWireCube(transform.position, boundsSize);
     }
-}
-
-[System.Serializable]
-public class Enemy
-{
-    public GameObject enemyPrefab;
-    public int cost;
 }
