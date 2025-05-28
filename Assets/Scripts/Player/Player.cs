@@ -48,9 +48,9 @@ public class Player : MonoBehaviour
     private void Move() {
         rb.linearVelocity = moveDir * moveSpeed;
         if (rb.linearVelocity.magnitude > 0)
-            cam.CameraDistance = 15;
+            cam.CameraDistance = 20;
         else
-            cam.CameraDistance = 10;
+            cam.CameraDistance = 15;
 
         // slippery movement
         /*        if (moveDir.sqrMagnitude > 0.01f) {
