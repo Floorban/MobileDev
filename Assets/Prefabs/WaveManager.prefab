@@ -61,9 +61,12 @@ MonoBehaviour:
   curWave: 1
   enemiesToSpawn: []
   spawnedEnemies: []
-  waveStart: 0
   waveTimer: 0
   spawnInterval: 0
+  spawnDelay: 2
+  timerText: {fileID: 0}
+  spawnIndicator: {fileID: 5804564806615817676, guid: f87eba7223dcc29408c031fbc4350808, type: 3}
+  waveStart: 0
 --- !u!114 &8757074944113585588
 MonoBehaviour:
   m_ObjectHideFlags: 0

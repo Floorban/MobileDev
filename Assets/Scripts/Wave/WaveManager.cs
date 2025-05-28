@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 public class WaveManager : MonoBehaviour
@@ -19,10 +21,12 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private float waveTimer;
     [SerializeField] private float spawnInterval;
     private float spawnTimer;
+    public float spawnDelay = 2f;
 
     [Header("UI")]
     private OffScreenIndicator offScreenIndicator;
     [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private GameObject spawnIndicator;
 
     [SerializeField] private bool waveStart;
     public bool WaveStart
@@ -73,13 +77,42 @@ public class WaveManager : MonoBehaviour
     }
     private void SpawnEnemy()
     {
-        Vector3 spawnPos = GetSpawnPos(player.position);
+/*        Vector3 spawnPos = GetSpawnPos(player.position);
+
         GameObject enemy = Instantiate(enemiesToSpawn[0], spawnPos, Quaternion.identity);
         enemy.transform.SetParent(transform);
         enemiesToSpawn.RemoveAt(0);
         spawnedEnemies.Add(enemy);
         offScreenIndicator.InitIndicator(enemy);
-        spawnTimer = spawnInterval;
+        spawnTimer = spawnInterval;*/
+
+        if (enemiesToSpawn.Count > 0)
+        {
+            Vector3 spawnPos = GetSpawnPos(player.position);
+            StartCoroutine(SpawnIndicator(spawnPos));
+            spawnTimer = spawnInterval;
+        }
+    }
+    private IEnumerator SpawnIndicator(Vector3 spawnPos)
+    {
+        GameObject indicator = Instantiate(spawnIndicator, spawnPos, Quaternion.identity);
+        indicator.transform.localScale = Vector3.one;
+
+        indicator.transform
+            .DOScale(1.2f, 0.5f)
+            .SetEase(Ease.InOutSine)
+            .SetLoops(-1, LoopType.Yoyo);
+
+        yield return new WaitForSeconds(spawnDelay);
+
+        indicator.transform.DOKill();
+        Destroy(indicator);
+
+        GameObject enemy = Instantiate(enemiesToSpawn[0], spawnPos, Quaternion.identity);
+        enemy.transform.SetParent(transform);
+        enemiesToSpawn.RemoveAt(0);
+        spawnedEnemies.Add(enemy);
+        offScreenIndicator.InitIndicator(enemy);
     }
     public void GenerateWave()
     {

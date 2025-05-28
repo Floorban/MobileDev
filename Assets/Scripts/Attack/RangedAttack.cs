@@ -23,7 +23,8 @@ public class RangedAttack : AttackBehavior
     {
         if (EnemyInRange() && !isPerforming && canPerform)
         {
-            Fire(firePoint, fireDir);
+            //Fire(firePoint, fireDir);
+            DOVirtual.DelayedCall(0.1f, () => Fire(firePoint, fireDir));
         }
     }
     public void Fire(Transform target, Vector2 dir)

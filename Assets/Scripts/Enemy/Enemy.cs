@@ -12,8 +12,6 @@ public class Enemy : MonoBehaviour, IDamageable
     public bool canBeDamaged = true;
     protected bool canAct = false;
     [SerializeField] private GameObject sprite;
-    [SerializeField] private GameObject spawnIndicator;
-
     private Transform player;
     private Rigidbody2D rb;
     private Vector2 moveDir;
@@ -24,6 +22,11 @@ public class Enemy : MonoBehaviour, IDamageable
         rb = GetComponent<Rigidbody2D>();
         health = GetComponent<HealthManager>().healthSystem;
         player = FindFirstObjectByType<Player>().transform;
+    }
+    private void Start()
+    {
+        sprite.GetComponent<Character>().Active = true;
+        canAct = true;
     }
     private void Update()
     {
@@ -52,28 +55,6 @@ public class Enemy : MonoBehaviour, IDamageable
             StartCoroutine(StunRecovery(stun));
         }
     }
-
-    private IEnumerator Start()
-    {
-        sprite.SetActive(false);
-        spawnIndicator.SetActive(true);
-        spawnIndicator.transform.localScale = Vector3.one;
-
-        spawnIndicator.transform
-            .DOScale(1.2f, 0.5f)
-            .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Yoyo);
-
-        yield return new WaitForSeconds(2);
-
-        spawnIndicator.transform.DOKill();
-        Destroy(spawnIndicator);
-
-        canAct = true;
-        sprite.SetActive(true);
-        sprite.GetComponent<Character>().Active = true;
-    }
-
     public virtual void Die() {
         OnEnemyDeath?.Invoke(gameObject);
         Destroy(gameObject, 0f);
