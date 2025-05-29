@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class RangedAttack : AttackBehavior
+public abstract class RangedAttack : AttackBehavior
 {
     public RangedWeapon _stats;
     [SerializeField] Transform firePoint;
@@ -27,19 +27,9 @@ public class RangedAttack : AttackBehavior
             DOVirtual.DelayedCall(0.1f, () => Fire(firePoint, fireDir));
         }
     }
-    public void Fire(Transform target, Vector2 dir)
+    public abstract void Fire(Transform target, Vector2 dir);
+    public void RecoilEffect()
     {
-        if (isPerforming) return;
-        
-        isPerforming = true;
-        canPerform = false;
-
-        GameObject proj = Instantiate(_stats.projectilePrefab, target.position, Quaternion.identity);
-        proj.AddComponent<AttackComponent>().damageAmount = 1;
-        Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
-        rb.linearVelocity = dir * _stats.speed;
-        Destroy(proj, _stats.lifeTime);
-
         float currentZ = transform.rotation.eulerAngles.z;
 
         Sequence recoilSeq = DOTween.Sequence();

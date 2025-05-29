@@ -41,9 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1130073511510746590}
   - component: {fileID: 8263287650689445222}
-  - component: {fileID: 8668094350212499813}
+  - component: {fileID: 1289020378427174239}
   m_Layer: 0
-  m_Name: RangedAttack
+  m_Name: RangedAttack_Bubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,7 +120,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8668094350212499813
+--- !u!114 &1289020378427174239
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8720808384128848908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 656bec3fcd56bd4488e0a7e6acda563e, type: 3}
+  m_Script: {fileID: 11500000, guid: 32005e1dde7291842b7dac2dcb3ecfff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
