@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BubbleAttack : RangedAttack
+public class SkewerAttack : RangedAttack
 {
     public override void Fire(Vector2 dir)
     {
