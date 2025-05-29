@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16805dbe5d7f9f545bc12aa2412af816, type: 3}
-  m_Name: Boba_WeaponStats
+  m_Name: WeaponStats_IceCream
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 8720808384128848908, guid: 4a3d6d3e9236af7479f1a0e552a0866d, type: 3}
+  weaponPrefab: {fileID: 8720808384128848908, guid: f62cc2e09d536f945936afecf09de22d, type: 3}
   spawnedWeapons: []
   damage: 10
   detectionRadius: 4
@@ -24,7 +24,7 @@ MonoBehaviour:
   lifeTime: 1
   cooldown: 0.5
   centerOffset: {x: 0, y: 0.3, z: 0}
-  projectilePrefab: {fileID: 8960536926405029604, guid: 3621b23179a1afb4192551b2c8c4719d, type: 3}
+  projectilePrefab: {fileID: 8960536926405029604, guid: fe12ac49ac5f4304da67445a4e439750, type: 3}
   recoilAngle: -20
   recoilDuration: 0.1
   returnDuration: 0.15

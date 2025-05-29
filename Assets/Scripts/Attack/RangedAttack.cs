@@ -17,7 +17,7 @@ public abstract class RangedAttack : AttackBehavior
     {
         base.Update();
         if (!isPerforming)
-           AimAtEnemy();
+            AimAtEnemy();
     }
     public override void Perform()
     {
@@ -82,7 +82,7 @@ public abstract class RangedAttack : AttackBehavior
 
         return false;
     }
-    private void AimAtEnemy()
+    protected void AimAtEnemy()
     {
         if (target)
         {

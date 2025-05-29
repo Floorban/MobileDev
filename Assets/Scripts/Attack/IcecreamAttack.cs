@@ -4,6 +4,7 @@ public class IceCreamAttack : RangedAttack
 {
     public int pelletCount = 3;
     public float spreadAngle = 30f;
+
     public override void Fire(Vector2 dir)
     {
         if (isPerforming) return;

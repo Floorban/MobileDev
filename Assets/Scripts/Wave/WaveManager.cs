@@ -44,7 +44,10 @@ public class WaveManager : MonoBehaviour
         player = FindFirstObjectByType<Player>().transform;
         offScreenIndicator = GetComponent<OffScreenIndicator>();
     }
-
+    private void Start()
+    {
+        WaveStart = true;
+    }
     private void FixedUpdate()
     {
         if (!waveStart) return;
