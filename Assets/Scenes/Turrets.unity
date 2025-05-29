@@ -1259,7 +1259,7 @@ PrefabInstance:
     - target: {fileID: 4747315445847799611, guid: 1f3284336780ed84b87a63e1f0342db4, type: 3}
       propertyPath: attack
       value: 
-      objectReference: {fileID: 11400000, guid: 4600021a1bd8b7341a3663e0c841071b, type: 2}
+      objectReference: {fileID: 11400000, guid: 9928d72d587403a49a5ff733c439ae7b, type: 2}
     - target: {fileID: 4747315445847799611, guid: 1f3284336780ed84b87a63e1f0342db4, type: 3}
       propertyPath: triggerRange
       value: 3

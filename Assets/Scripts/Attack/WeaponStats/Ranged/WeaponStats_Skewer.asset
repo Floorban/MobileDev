@@ -22,7 +22,7 @@ MonoBehaviour:
   hasActivated: 0
   speed: 10
   lifeTime: 1
-  cooldown: 0.5
+  cooldown: 3
   centerOffset: {x: 0, y: 0.3, z: 0}
   projectilePrefab: {fileID: 8960536926405029604, guid: 9623cd03efba8ab438d60214869eb4e3, type: 3}
   recoilAngle: -20

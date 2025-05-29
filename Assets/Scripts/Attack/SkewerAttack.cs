@@ -3,11 +3,6 @@ using UnityEngine;
 
 public class SkewerAttack : RangedAttack
 {
-    public override void Update()
-    {
-        Perform();
-        AimAtEnemy();
-    }
     public override void Fire(Vector2 dir)
     {
         if (isPerforming) return;
@@ -20,7 +15,7 @@ public class SkewerAttack : RangedAttack
         for (int i = 0; i < 3; i++)
         {
             InstantiateProjectile(dir);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(stats.cooldown / 10f);
         }
         isPerforming = false;
     }
