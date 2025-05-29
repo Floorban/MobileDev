@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class RangedAttack : AttackBehavior
 {
     public RangedWeapon _stats;
-    [SerializeField] Transform firePoint;
+    [SerializeField] private Transform firePoint;
     private Transform target;
     private Vector2 fireDir;
     public void Setup(RangedWeapon data)
@@ -27,7 +27,7 @@ public abstract class RangedAttack : AttackBehavior
             DOVirtual.DelayedCall(0.1f, () => Fire(firePoint, fireDir));
         }
     }
-    public abstract void Fire(Transform target, Vector2 dir);
+    public abstract void Fire(Transform firePoint, Vector2 dir);
     public void RecoilEffect()
     {
         float currentZ = transform.rotation.eulerAngles.z;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6793429550231449882}
   - component: {fileID: 8767156363364038926}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: Projectile_Bubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7ba12a4f7acce6f42ad809a4bb6e039d, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
