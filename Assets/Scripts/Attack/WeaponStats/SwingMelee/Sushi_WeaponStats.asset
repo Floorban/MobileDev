@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3612793015eb746b6a9af50017d0ed, type: 3}
   m_Name: Sushi_WeaponStats
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 8720808384128848908, guid: 0913bd39c2ba49e4a83d56af77f75678, type: 3}
+  weaponPrefab: {fileID: 8720808384128848908, guid: 43395ba3597ff4c43aecb93ae9939b14, type: 3}
   spawnedWeapons: []
   damage: 10
-  detectionRadius: 2
+  detectionRadius: 0.7
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
   hasActivated: 0
-  speed: 10
+  speed: 5
   lifeTime: 1
-  cooldown: 1
-  centerOffset: {x: 0, y: 0, z: 0}
+  cooldown: 0.5
+  centerOffset: {x: -0.25, y: 0.25, z: 0}
   swingAngle: 90
   swingDuration: 0.3
   windupAngle: 20
