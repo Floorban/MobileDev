@@ -5,7 +5,6 @@ public abstract class RangedAttack : AttackBehavior
 {
     public RangedWeapon _stats;
     [SerializeField] private Transform firePoint;
-    private Transform target;
     private Vector2 fireDir;
     public void Setup(RangedWeapon data)
     {
@@ -82,15 +81,7 @@ public abstract class RangedAttack : AttackBehavior
 
         return false;
     }
-    protected void AimAtEnemy()
-    {
-        if (target)
-        {
-            Vector3 dir = (target.position - transform.position).normalized;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0,0,angle - 90f);
-        }
-    } 
+
     private void OnDrawGizmosSelected()
     {
         if (_stats == null) return;

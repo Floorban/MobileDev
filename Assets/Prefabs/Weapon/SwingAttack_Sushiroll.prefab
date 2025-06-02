@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1130073511510746590}
   - component: {fileID: 4768972872554100786}
-  - component: {fileID: 8115769964691832253}
+  - component: {fileID: 7463701010058668279}
   m_Layer: 0
   m_Name: SwingAttack_Sushiroll
   m_TagString: Untagged
@@ -88,7 +88,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8115769964691832253
+--- !u!114 &7463701010058668279
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,10 +97,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8720808384128848908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c180d34ad171f4e4ca71787c7ea2c6ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 857138ee4c081de4381b2e94749e4a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
-  isPerforming: 0
-  canPerform: 0
-  _stats: {fileID: 0}

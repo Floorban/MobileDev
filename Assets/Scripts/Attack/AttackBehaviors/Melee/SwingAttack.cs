@@ -1,6 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
-public class SwingAttack : AttackBehavior
+public abstract class SwingAttack : AttackBehavior
 {
     public SwingMeleeWeapon _stats;
     public void Setup(SwingMeleeWeapon data)
