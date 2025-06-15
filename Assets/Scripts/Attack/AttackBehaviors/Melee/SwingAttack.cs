@@ -8,6 +8,11 @@ public abstract class SwingAttack : AttackBehavior
         _stats = data;
         stats = data;
     }
+    public override void Update() {
+        base.Update();
+        if (!isPerforming)
+            AimAtEnemy();
+    }
     public override void Perform()
     {
         if (!isPerforming && canPerform && EnemyInRange())
@@ -39,15 +44,7 @@ public abstract class SwingAttack : AttackBehavior
             });
     }
 
-    private void DealDamage()
-    {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position + _stats.centerOffset, _stats.detectionRadius, _stats.enemyLayer);
-        foreach (var hit in hits)
-        {
-            var dmg = hit.GetComponent<IDamageable>();
-            if (dmg != null) dmg.TakeDamage(_stats.damage);
-        }
-    }
+    public abstract void DealDamage();
 
     void OnDrawGizmosSelected()
     {

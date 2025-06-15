@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa96714832b1b9448872857d19c8423e, type: 3}
   m_Name: EnemyStats 1
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 1
   invincibleTime: 0.5
   damage: 1
   attackLayer:

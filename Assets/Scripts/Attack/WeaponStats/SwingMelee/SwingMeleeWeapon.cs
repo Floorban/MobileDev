@@ -8,6 +8,7 @@ public class SwingMeleeWeapon : WeaponStats
     public float windupAngle = 20f;
     public float windupDuration = 0.3f;
     public float returnDuration = 0.15f;
+    public float knockbackForce = 5f;
 
     public override void Activate(WeaponManager p)
     {

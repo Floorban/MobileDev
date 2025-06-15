@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     private CinemachinePositionComposer cam;
     private void Awake() {
         InitComponents();
-        EnableJoystick();
+        //EnableJoystick();
     }
     private void Update() {
         JoystickInput();
@@ -43,6 +43,9 @@ public class Player : MonoBehaviour
     private void JoystickInput() {
         if (isJoystick) {
             moveDir = new Vector2(joystick.Direction.x, joystick.Direction.y).normalized;
+        }
+        else {
+            moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         }
     }
     private void Move() {

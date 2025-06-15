@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 8720808384128848908, guid: 0913bd39c2ba49e4a83d56af77f75678, type: 3}
   spawnedWeapons: []
-  damage: 10
+  damage: 1
   detectionRadius: 0.7
   enemyLayer:
     serializedVersion: 2
@@ -29,3 +29,4 @@ MonoBehaviour:
   windupAngle: 20
   windupDuration: 0.15
   returnDuration: 0.15
+  knockbackForce: 5

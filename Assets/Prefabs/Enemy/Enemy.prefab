@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48566880a45968240a7274dc4d84ded6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
+  maxHealth: 3
   armorPrefab: {fileID: 0}
   maxArmor: 0
   startArmor: 0
