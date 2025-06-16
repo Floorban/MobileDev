@@ -20,8 +20,13 @@ public class Player : MonoBehaviour
     public float acceleration = 10f;
     public float drag = 0.5f;
 
-    private CinemachinePositionComposer cam;
+    [Header("Camera")]
+    [HideInInspector] public CinemachinePositionComposer cam;
+    public float zoomedOutDist;
+
     private void Awake() {
+        StationUI.OnShopEnter += CameraLock;
+        StationUI.OnShopExit += CameraUnlock;
         InitComponents();
         //EnableJoystick();
     }
@@ -41,19 +46,14 @@ public class Player : MonoBehaviour
         inputCanvas.gameObject.SetActive(true);
     }
     private void JoystickInput() {
-        if (isJoystick) {
+        if (isJoystick)
             moveDir = new Vector2(joystick.Direction.x, joystick.Direction.y).normalized;
-        }
-        else {
+        else
             moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-        }
     }
     private void Move() {
         rb.linearVelocity = moveDir * moveSpeed;
-        if (rb.linearVelocity.magnitude > 0)
-            cam.CameraDistance = 20;
-        else
-            cam.CameraDistance = 15;
+        CameraControl(rb.linearVelocity.magnitude);
 
         // slippery movement
         /*        if (moveDir.sqrMagnitude > 0.01f) {
@@ -65,6 +65,32 @@ public class Player : MonoBehaviour
                 if (rb.linearVelocity.magnitude > maxSpeed) {
                     rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
                 }*/
+    }
+    private void CameraControl(float vel)
+    {
+        if (vel > 0)
+            cam.CameraDistance = zoomedOutDist;
+        else
+            cam.CameraDistance = zoomedOutDist - 3;
+    }
+    private void CameraLock(ChefStation s)
+    {
+        CameraTarget cameraTarget = new CameraTarget
+        {
+            TrackingTarget = s.transform,
+            //LookAtTarget = s.transform,
+        };
+
+        cam.GetComponent<CinemachineCamera>().Target = cameraTarget;
+    }
+    private void CameraUnlock()
+    {
+        CameraTarget cameraTarget = new CameraTarget
+        {
+            TrackingTarget = transform,
+            //LookAtTarget = transform,
+        };
+        cam.GetComponent<CinemachineCamera>().Target = cameraTarget;
     }
     public void ApplyRecoil(Vector2 dir, float force, float stunTime = 0.2f)
     {

@@ -12,7 +12,7 @@ public class ChickenAttack : SwingAttack
             }
             var dmg = hit.GetComponent<IDamageable>();
             if (dmg != null) {
-                dmg.TakeDamage(_stats.damage, 0.15f);
+                dmg.TakeDamage(_stats.damage, 0.1f);
             }
         }
     }

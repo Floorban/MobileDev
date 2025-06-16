@@ -8,7 +8,8 @@ public class ChefStation : MonoBehaviour
     private CircleCollider2D col;
     public WeaponStats attack;
     public GameObject activeAttack;
-    private WeaponManager player;
+    [HideInInspector] public Player player;
+    private WeaponManager playerWeapon;
     private RangeVisualizer rangeVisual;
     public float triggerRange = 3f;
     private bool nearby;
@@ -42,8 +43,10 @@ public class ChefStation : MonoBehaviour
     {
         col = GetComponent<CircleCollider2D>();
         col.isTrigger = true;
-        player = FindFirstObjectByType<WeaponManager>();
         rangeVisual = GetComponent<RangeVisualizer>();
+        player = FindFirstObjectByType<Player>();
+        if (player != null )
+            playerWeapon = player.GetComponent<WeaponManager>();
     }
     public void SetRange(float newRange)
     {
@@ -60,7 +63,7 @@ public class ChefStation : MonoBehaviour
             if (!attack.hasActivated)
             {
                 cooldownTimer = attack.cooldown;
-                attack.Activate(player);
+                attack.Activate(playerWeapon);
                 activeAttack = attack.spawnedWeapons[attack.spawnedWeapons.Count - 1];
             }
         }
@@ -71,7 +74,7 @@ public class ChefStation : MonoBehaviour
 
             if (activeAttack)
             {
-                player.RemoveWeapon(activeAttack);
+                playerWeapon.RemoveWeapon(activeAttack);
                 attack.spawnedWeapons.Remove(activeAttack);
                 activeAttack = null;
             }
