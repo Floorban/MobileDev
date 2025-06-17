@@ -25,8 +25,8 @@ public class Player : MonoBehaviour
     public float zoomedOutDist;
 
     private void Awake() {
-        StationUpgrade.OnShopEnter += CameraLock;
-        StationUpgrade.OnShopExit += CameraUnlock;
+        StationInteraction.OnShopEnter += CameraLock;
+        StationInteraction.OnShopExit += CameraUnlock;
         InitComponents();
         EnableJoystick();
     }

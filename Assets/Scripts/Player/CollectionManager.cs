@@ -18,4 +18,5 @@ public class CollectionManager : MonoBehaviour
         numOfTip += increasedAmount;
         amountText.text = numOfTip.ToString();
     }
+    public int GetTips() => numOfTip;
 }

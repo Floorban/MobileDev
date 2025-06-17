@@ -119,7 +119,7 @@ public class ChefStation : MonoBehaviour
 
     public void UpgradeHP()
     {
-
+        Debug.Log("works");
     }
     public void UpgradeCD(float changedAmount)
     {
