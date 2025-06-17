@@ -145,6 +145,7 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 6065c91f3551cc64cbf0e1a6d2a71333, type: 2}
   canBeDamaged: 1
   sprite: {fileID: 8694107945095611879}
+  spriteRenderer: {fileID: 404713687138555357}
 --- !u!1 &8694107945095611879
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +202,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: df20018e4bca2bd459d30160f78eb834, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

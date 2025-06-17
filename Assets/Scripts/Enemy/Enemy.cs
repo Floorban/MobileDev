@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private Rigidbody2D rb;
     private Vector2 moveDir;
 
+    [SerializeField] SpriteRenderer spriteRenderer;
     public static UnityAction<GameObject> OnEnemyDeath;
     private void Awake()
     {
@@ -53,11 +54,19 @@ public class Enemy : MonoBehaviour, IDamageable
         else {
             StartCoroutine(Invincible(stats.invincibleTime));
             StartCoroutine(StunRecovery(stun));
+            StartCoroutine(Flash(stun));
         }
     }
     public virtual void Die() {
         OnEnemyDeath?.Invoke(gameObject);
         Destroy(gameObject, 0f);
+    }
+
+    public IEnumerator Flash(float duration)
+    {
+        spriteRenderer.material.SetInt("_Flash", 1);
+        yield return new WaitForSeconds(duration);
+        spriteRenderer.material.SetInt("_Flash", 0);
     }
     protected IEnumerator Invincible(float duration) {
         if (canBeDamaged) {
