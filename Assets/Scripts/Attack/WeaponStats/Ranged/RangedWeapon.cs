@@ -8,6 +8,7 @@ public class RangedWeapon : WeaponStats
     public float recoilAngle = -15f;
     public float recoilDuration = 0.05f;
     public float returnDuration = 0.1f;
+    public float stunDuration = 0.1f;
     public override void Activate(WeaponManager p)
     {
         GameObject weapon = p.AddWeapon(weaponPrefab);

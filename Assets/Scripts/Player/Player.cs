@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
         StationUI.OnShopEnter += CameraLock;
         StationUI.OnShopExit += CameraUnlock;
         InitComponents();
-        //EnableJoystick();
+        EnableJoystick();
     }
     private void Update() {
         JoystickInput();
@@ -77,10 +77,11 @@ public class Player : MonoBehaviour
     {
         CameraTarget cameraTarget = new CameraTarget
         {
-            TrackingTarget = s.transform,
-            //LookAtTarget = s.transform,
+            TrackingTarget = s.lookAt,
+            LookAtTarget = s.lookAt,
         };
 
+        cam.CameraDistance = s.zoomedInDist;
         cam.GetComponent<CinemachineCamera>().Target = cameraTarget;
     }
     private void CameraUnlock()
@@ -88,7 +89,7 @@ public class Player : MonoBehaviour
         CameraTarget cameraTarget = new CameraTarget
         {
             TrackingTarget = transform,
-            //LookAtTarget = transform,
+            LookAtTarget = transform,
         };
         cam.GetComponent<CinemachineCamera>().Target = cameraTarget;
     }

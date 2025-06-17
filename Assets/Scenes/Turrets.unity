@@ -878,6 +878,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chef_1
       objectReference: {fileID: 0}
+    - target: {fileID: 2435467477926506743, guid: 243aaa28aeeeb4b468744966a66db1f3, type: 3}
+      propertyPath: zoomedInDist
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1134,6 +1138,10 @@ PrefabInstance:
       propertyPath: attack
       value: 
       objectReference: {fileID: 11400000, guid: 80f0b6f521f248541b5a10a997c28311, type: 2}
+    - target: {fileID: 2435467477926506743, guid: 243aaa28aeeeb4b468744966a66db1f3, type: 3}
+      propertyPath: zoomedInDist
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1200,6 +1208,10 @@ PrefabInstance:
       propertyPath: attack
       value: 
       objectReference: {fileID: 11400000, guid: 5b7a9997f67c31345bc868eb90d28a9c, type: 2}
+    - target: {fileID: 2435467477926506743, guid: 243aaa28aeeeb4b468744966a66db1f3, type: 3}
+      propertyPath: zoomedInDist
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8022207340686560122, guid: 243aaa28aeeeb4b468744966a66db1f3, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1384,6 +1396,10 @@ PrefabInstance:
       propertyPath: attack
       value: 
       objectReference: {fileID: 11400000, guid: f5d581462872328448b6908d16d71ff4, type: 2}
+    - target: {fileID: 2435467477926506743, guid: 243aaa28aeeeb4b468744966a66db1f3, type: 3}
+      propertyPath: zoomedInDist
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1450,6 +1466,10 @@ PrefabInstance:
       propertyPath: attack
       value: 
       objectReference: {fileID: 11400000, guid: 4600021a1bd8b7341a3663e0c841071b, type: 2}
+    - target: {fileID: 2435467477926506743, guid: 243aaa28aeeeb4b468744966a66db1f3, type: 3}
+      propertyPath: zoomedInDist
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1592,7 +1612,7 @@ PrefabInstance:
       objectReference: {fileID: 111928453}
     - target: {fileID: 5857142333872587514, guid: 1f3284336780ed84b87a63e1f0342db4, type: 3}
       propertyPath: isJoystick
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5857142333872587514, guid: 1f3284336780ed84b87a63e1f0342db4, type: 3}
       propertyPath: inputCanvas
@@ -1769,6 +1789,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 138640992}
+    - target: {fileID: 5475929788101046153, guid: 0f947931b6a51e84a8cb212295c8c8a5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 850
+      objectReference: {fileID: 0}
+    - target: {fileID: 5475929788101046153, guid: 0f947931b6a51e84a8cb212295c8c8a5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 425
+      objectReference: {fileID: 0}
     - target: {fileID: 7603239938621866617, guid: 0f947931b6a51e84a8cb212295c8c8a5, type: 3}
       propertyPath: m_Name
       value: GameplayUI

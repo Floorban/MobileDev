@@ -6,6 +6,8 @@ public abstract class AttackBehavior : MonoBehaviour
     public bool isPerforming = false;
     public bool canPerform = false;
     protected Transform target;
+    public int baseDamage = 1;
+    public float stunDuration = 0.1f;
 
     public virtual void Update()
     {

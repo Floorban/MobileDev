@@ -30,7 +30,9 @@ public abstract class RangedAttack : AttackBehavior
     public void InstantiateProjectile(Vector2 dir)
     {
         GameObject proj = Instantiate(_stats.projectilePrefab, firePoint.position, Quaternion.identity);
-        proj.AddComponent<AttackComponent>().damageAmount = 1;
+        var ac = proj.AddComponent<AttackComponent>();
+        ac.damageAmount = baseDamage;
+        ac.stunTime = _stats.stunDuration;
         Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
         rb.linearVelocity = dir * _stats.speed;
         Destroy(proj, _stats.lifeTime);

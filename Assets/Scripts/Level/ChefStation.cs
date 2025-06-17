@@ -5,6 +5,8 @@ using UnityEngine;
 public class ChefStation : MonoBehaviour
 {
     [SerializeField] Character sprite;
+    public Transform lookAt;
+    [HideInInspector] public float zoomedInDist = 9;
     private CircleCollider2D col;
     public WeaponStats attack;
     public GameObject activeAttack;

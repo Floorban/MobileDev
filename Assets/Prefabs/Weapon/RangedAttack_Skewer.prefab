@@ -431,5 +431,7 @@ MonoBehaviour:
   stats: {fileID: 0}
   isPerforming: 0
   canPerform: 0
+  baseDamage: 1
+  stunDuration: 0.1
   _stats: {fileID: 0}
   firePoint: {fileID: 8152633765819561511}
