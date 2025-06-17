@@ -5,9 +5,8 @@ using UnityEngine;
 public class ChefStation : MonoBehaviour
 {
     [SerializeField] Character sprite;
-    public Transform lookAt;
-    [HideInInspector] public float zoomedInDist = 9;
     private CircleCollider2D col;
+    public Transform lookAt;
     public WeaponStats attack;
     public GameObject activeAttack;
     [HideInInspector] public Player player;
@@ -16,6 +15,7 @@ public class ChefStation : MonoBehaviour
     public float triggerRange = 3f;
     private bool nearby;
     private float cooldownTimer = 0f;
+    public float maxCooldown;
     public bool CanActivate => attack && nearby;
 
     private bool PlayerInRange
@@ -64,7 +64,7 @@ public class ChefStation : MonoBehaviour
         {
             if (!attack.hasActivated)
             {
-                cooldownTimer = attack.cooldown;
+                cooldownTimer = attack.cooldown - maxCooldown;
                 attack.Activate(playerWeapon);
                 activeAttack = attack.spawnedWeapons[attack.spawnedWeapons.Count - 1];
             }
@@ -115,5 +115,18 @@ public class ChefStation : MonoBehaviour
     {
         if (collision.gameObject == player.gameObject)
             PlayerInRange = false;
+    }
+
+    public void UpgradeHP()
+    {
+
+    }
+    public void UpgradeCD(float changedAmount)
+    {
+        maxCooldown += changedAmount;
+    }
+    public void UpgradeRange(float changedAmount)
+    {
+        triggerRange += changedAmount;
     }
 }

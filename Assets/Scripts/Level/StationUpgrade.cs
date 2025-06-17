@@ -1,8 +1,8 @@
 using UnityEngine;
 using System;
-public class StationUI : MonoBehaviour
+public class StationUpgrade : MonoBehaviour
 {
-    ChefStation station;
+    ChefStation staion;
     [SerializeField] private float enterDuration;
     [SerializeField] private float enterTimer;
     private bool nearby;
@@ -17,12 +17,6 @@ public class StationUI : MonoBehaviour
 
     public static event Action<ChefStation> OnShopEnter;
     public static event Action OnShopExit;
-
-    private void Awake()
-    {
-        station = GetComponentInParent<ChefStation>();
-    }
-
     private void Update()
     {
         if (PlayerInRange)
@@ -31,16 +25,16 @@ public class StationUI : MonoBehaviour
             enterTimer = 0;
 
         if (enterTimer > enterDuration)
-            OnShopEnter?.Invoke(station);
+            OnShopEnter?.Invoke(staion);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == station.player.gameObject)
+        if (collision.gameObject == staion.player.gameObject)
             PlayerInRange = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject == station.player.gameObject)
+        if (collision.gameObject == staion.player.gameObject)
         {
             PlayerInRange = false;
             OnShopExit?.Invoke();

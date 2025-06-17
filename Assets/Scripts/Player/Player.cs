@@ -25,8 +25,8 @@ public class Player : MonoBehaviour
     public float zoomedOutDist;
 
     private void Awake() {
-        StationUI.OnShopEnter += CameraLock;
-        StationUI.OnShopExit += CameraUnlock;
+        StationUpgrade.OnShopEnter += CameraLock;
+        StationUpgrade.OnShopExit += CameraUnlock;
         InitComponents();
         EnableJoystick();
     }
@@ -73,15 +73,15 @@ public class Player : MonoBehaviour
         else
             cam.CameraDistance = zoomedOutDist - 3;
     }
-    private void CameraLock(ChefStation s)
+    private void CameraLock(ChefStation station)
     {
         CameraTarget cameraTarget = new CameraTarget
         {
-            TrackingTarget = s.lookAt,
-            LookAtTarget = s.lookAt,
+            TrackingTarget = station.lookAt,
+            LookAtTarget = station.lookAt,
         };
 
-        cam.CameraDistance = s.zoomedInDist;
+        cam.CameraDistance = zoomedOutDist - 6;
         cam.GetComponent<CinemachineCamera>().Target = cameraTarget;
     }
     private void CameraUnlock()
