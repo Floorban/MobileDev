@@ -1,17 +1,20 @@
 using UnityEngine;
 using System;
+using TMPro;
 public class StationInteraction : MonoBehaviour
 {
     ChefStation station;
     [SerializeField] private float enterDuration;
     [SerializeField] private float enterTimer;
     private bool nearby;
+    private bool inShop;
     private bool PlayerInRange
     {
         get => nearby;
         set
         {
             nearby = value;
+            inShop = false;
         }
     }
 
@@ -28,8 +31,11 @@ public class StationInteraction : MonoBehaviour
         else
             enterTimer = 0;
 
-        if (enterTimer > enterDuration)
+        if (enterTimer > enterDuration && !inShop)
+        {
+            inShop = true;
             OnShopEnter?.Invoke(station);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

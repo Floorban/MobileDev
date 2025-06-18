@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private DynamicJoystick joystick;
     [SerializeField] private Canvas inputCanvas;
     public bool isJoystick;
+    private bool inputLocked;
 
     [Header("Movement")]
     private Rigidbody2D rb;
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
     }
     private void Update() {
         JoystickInput();
+        CameraControl(rb.linearVelocity.magnitude, inputLocked);
     }
     private void FixedUpdate() {
         Move();
@@ -53,7 +55,6 @@ public class Player : MonoBehaviour
     }
     private void Move() {
         rb.linearVelocity = moveDir * moveSpeed;
-        CameraControl(rb.linearVelocity.magnitude);
 
         // slippery movement
         /*        if (moveDir.sqrMagnitude > 0.01f) {
@@ -66,12 +67,14 @@ public class Player : MonoBehaviour
                     rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
                 }*/
     }
-    private void CameraControl(float vel)
+    private void CameraControl(float vel, bool locked)
     {
         if (vel > 0)
             cam.CameraDistance = zoomedOutDist;
+        else if (!locked)
+            cam.CameraDistance = zoomedOutDist - 2;
         else
-            cam.CameraDistance = zoomedOutDist - 3;
+            cam.CameraDistance = zoomedOutDist - 7;
     }
     private void CameraLock(ChefStation station)
     {
@@ -80,8 +83,7 @@ public class Player : MonoBehaviour
             TrackingTarget = station.lookAt,
             LookAtTarget = station.lookAt,
         };
-
-        cam.CameraDistance = zoomedOutDist - 6;
+        inputLocked = true;
         cam.GetComponent<CinemachineCamera>().Target = cameraTarget;
     }
     private void CameraUnlock()
@@ -91,6 +93,7 @@ public class Player : MonoBehaviour
             TrackingTarget = transform,
             LookAtTarget = transform,
         };
+        inputLocked = false;
         cam.GetComponent<CinemachineCamera>().Target = cameraTarget;
     }
     public void ApplyRecoil(Vector2 dir, float force, float stunTime = 0.2f)

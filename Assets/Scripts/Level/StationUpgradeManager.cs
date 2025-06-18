@@ -29,8 +29,14 @@ public class StationUpgradeManager : MonoBehaviour
     }
     public void OnOpen(ChefStation station)
     {
+        Debug.Log("shop opened");
         Panel.SetActive(true);
         FindStation(station);
+
+        b_stationHP.onClick.RemoveAllListeners();
+        b_stationCD.onClick.RemoveAllListeners();
+        b_stationRange.onClick.RemoveAllListeners();
+
         b_stationHP.onClick.AddListener(StationHP);
         b_stationCD.onClick.AddListener(StationCD);
         b_stationRange.onClick.AddListener(StationRange);
@@ -50,7 +56,10 @@ public class StationUpgradeManager : MonoBehaviour
     public void StationHP()
     {
         if(collection.GetTips() > 1)
+        {
             curStation.UpgradeHP();
+            collection.ConsumeTips(1);
+        }
     }
     public void StationCD() => curStation.UpgradeCD(1);
     public void StationRange() => curStation.UpgradeRange(1);

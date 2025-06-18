@@ -19,4 +19,5 @@ public class CollectionManager : MonoBehaviour
         amountText.text = numOfTip.ToString();
     }
     public int GetTips() => numOfTip;
+    public void ConsumeTips(int amount) => numOfTip -= amount;
 }

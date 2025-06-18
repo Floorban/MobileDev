@@ -88,11 +88,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 7831243756849660515}
   lookAt: {fileID: 5457545718216407871}
-  zoomedInDist: 8
   attack: {fileID: 11400000, guid: d540a3cfcad488542a8402d8077ac55b, type: 2}
   activeAttack: {fileID: 0}
   player: {fileID: 0}
   triggerRange: 3
+  maxCooldown: 0
 --- !u!114 &276978572683491920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,7 +517,7 @@ Transform:
   m_GameObject: {fileID: 7381230205493950900}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.5, z: 0}
+  m_LocalPosition: {x: 0, y: -1.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
