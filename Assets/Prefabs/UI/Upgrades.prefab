@@ -71,10 +71,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8697189870781698171}
     m_Modifications:
-    - target: {fileID: 1576715939785554841, guid: 1d1d1a70340a05c42af82fa71dbae5d9, type: 3}
-      propertyPath: m_text
-      value: CoolDown
-      objectReference: {fileID: 0}
+    - target: {fileID: 1486942556767775536, guid: 1d1d1a70340a05c42af82fa71dbae5d9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 661354477, guid: 7d1dc0f541f7b1247a466b1fb8de02f9, type: 3}
     - target: {fileID: 2393243153852063002, guid: 1d1d1a70340a05c42af82fa71dbae5d9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -177,12 +177,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8697189870781698171}
     m_Modifications:
-    - target: {fileID: 1576715939785554841, guid: 1d1d1a70340a05c42af82fa71dbae5d9, type: 3}
-      propertyPath: m_text
-      value: 'Interact Range
-
-'
-      objectReference: {fileID: 0}
+    - target: {fileID: 1486942556767775536, guid: 1d1d1a70340a05c42af82fa71dbae5d9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -125639941, guid: 7d1dc0f541f7b1247a466b1fb8de02f9, type: 3}
     - target: {fileID: 2393243153852063002, guid: 1d1d1a70340a05c42af82fa71dbae5d9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -285,6 +283,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8697189870781698171}
     m_Modifications:
+    - target: {fileID: 1486942556767775536, guid: 1d1d1a70340a05c42af82fa71dbae5d9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -67555437, guid: 7d1dc0f541f7b1247a466b1fb8de02f9, type: 3}
     - target: {fileID: 2393243153852063002, guid: 1d1d1a70340a05c42af82fa71dbae5d9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
